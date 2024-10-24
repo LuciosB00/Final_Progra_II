@@ -8,13 +8,25 @@ public class CuentaCorriente {
 	// Atributos
 	private ArrayList <Movimiento> movimientos = new ArrayList <Movimiento> ();
 	
+	// Constructor
+	public CuentaCorriente (ArrayList <Movimiento> movimientos) {
+		this.movimientos = movimientos;
+	}
+	
 	//Metodos
 	public void agregarMovimiento (Movimiento movimiento) {
 		movimientos.add(movimiento);
 	}
 	
-	public void actualizarSaldo (Movimiento movimientio) {
+	public void actualizarSaldo (Movimiento movimiento) {
+		double nuevoSaldo; String nuevoSaldoAux=null;
+		System.out.println("Detalle del movimiento: " + movimiento.getDetalle());
+		System.out.println("Su saldo actual es: " + movimiento.getSaldo());
 		
+		if(MetodosGeneral.escogerBooleano("¿Desea actualizar su saldo?:")) {
+			nuevoSaldo = MetodosGeneral.castearDecimal("Ingrese el nuevo saldo:", nuevoSaldoAux);
+			movimiento.setSaldo(nuevoSaldo);
+		}
 	}
 	
 	public double obetenerSaldo () {

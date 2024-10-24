@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class MetodosGeneral {
 
+	// Metodo para crear LocalDate
 	public static LocalDate crearFecha (String mensaje) {
 		System.out.println(mensaje);
 		String dia=null,mes=null,año=null;
@@ -18,6 +19,7 @@ public class MetodosGeneral {
 		return aux;
 	}
 	
+	// Metodo para escoger un booleano
 	public static boolean escogerBooleano (String mensaje) {
 		String aux = null; int num;
 		
@@ -36,9 +38,9 @@ public class MetodosGeneral {
 		return false;
 	}
 	
+	// Metodos de casteo de datos
 	public static int castearEntero (String mensaje, String dato) {
-		int num = 0;
-		boolean flag = true;
+		int num = 0; boolean flag = true;
 		Scanner entradaTeclado= new Scanner(System.in);
 		
 		do {
@@ -56,8 +58,7 @@ public class MetodosGeneral {
 	}
 	
 	public static double castearDecimal (String mensaje, String dato) {
-		double num = 0;
-		boolean flag = true;
+		double num = 0;	boolean flag = true;
 		Scanner entradaTeclado= new Scanner(System.in);
 		
 		do {
@@ -76,27 +77,21 @@ public class MetodosGeneral {
 	
 	// Metodos Enumeradores
 	public static Sexo escogerGenero () {
-		Sexo generoSeleccionado;
-		int seleccion;
-		String seleccionAux = null;
-		Scanner teclado = new Scanner (System.in);
+		int seleccion; String seleccionAux = null;
 		
 		do {
 			System.out.println("Generos disponibles:");
 			for(Sexo genero: Sexo.values()) {
-				System.out.println(genero.ordinal() + 1 + "." + genero);
+				System.out.println(genero.ordinal() + 1 + "." + genero.obtenerSexo());
 			}
 			seleccion = MetodosGeneral.castearEntero("Seleccione algún genero: ", seleccionAux);
 		}while(seleccion < 1 || seleccion > 3);
 		
-		return generoSeleccionado = Sexo.values()[seleccion - 1];
+		return Sexo.values()[seleccion - 1];
 	}
 	
 	public static Provincia escogerProvincia () {
-		Provincia provinciaSeleccionada;
-		int seleccion;
-		String seleccionAux = null;
-		Scanner teclado = new Scanner (System.in);
+		int seleccion; String seleccionAux = null;
 		
 		do {
 			System.out.println("Provincias disponibles:");
@@ -106,14 +101,11 @@ public class MetodosGeneral {
 			seleccion = MetodosGeneral.castearEntero("Seleccione alguna provincia: ", seleccionAux);
 		}while(seleccion < 1 || seleccion > 23);
 		
-		return provinciaSeleccionada = Provincia.values()[seleccion - 1];
+		return Provincia.values()[seleccion - 1];
 	}
 	
 	public static Categoria escogerCategoria () {
-		Categoria categoriaSeleccionada;
-		int seleccion;
-		String seleccionAux = null;
-		Scanner teclado = new Scanner (System.in);
+		int seleccion; String seleccionAux = null;
 		
 		do {
 			System.out.println("Provincias disponibles:");
@@ -123,14 +115,11 @@ public class MetodosGeneral {
 			seleccion = MetodosGeneral.castearEntero("Seleccione alguna categoria: ", seleccionAux);
 		}while(seleccion < 1 || seleccion > 3);
 		
-		return categoriaSeleccionada = Categoria.values()[seleccion - 1];
+		return Categoria.values()[seleccion - 1];
 	}
 	
 	public static FormaPago escogerFomaPago () {
-		FormaPago pagoSeleccionada;
-		int seleccion;
-		String seleccionAux = null;
-		Scanner teclado = new Scanner (System.in);
+		int seleccion; String seleccionAux = null;
 		
 		do {
 			System.out.println("Formas de pago disponibles:");
@@ -140,6 +129,6 @@ public class MetodosGeneral {
 			seleccion = MetodosGeneral.castearEntero("Seleccione alguna forma de pago: ", seleccionAux);
 		}while(seleccion < 1 || seleccion > 5);
 		
-		return pagoSeleccionada = FormaPago.values()[seleccion - 1];
+		return FormaPago.values()[seleccion - 1];
 	}
 }

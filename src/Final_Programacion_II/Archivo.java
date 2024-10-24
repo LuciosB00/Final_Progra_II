@@ -41,15 +41,20 @@ public class Archivo {
 	}
 	
 	// ABRIR CONEXIÓN ARCHIVO MODO ESCRITURA
-	public static PrintWriter abrirArchivoEscritura(String ruta) throws IOException {
+	public static PrintWriter abrirArchivoEscritura(String ruta) {
 		File archivo = new File(ruta);
-		if (archivo.exists()) {
-			FileWriter escribirArchivo = new FileWriter(archivo,true);
-			PrintWriter imprimir = new PrintWriter(escribirArchivo);
-			return imprimir;
-		} else {
-			throw new IOException("El archivo especificado no existe.");
-		}	
+		PrintWriter imprimir = null;
+		try {
+			if (archivo.exists()) {
+				FileWriter escribirArchivo = new FileWriter(archivo,true);
+				imprimir = new PrintWriter(escribirArchivo);
+			} else {
+				System.out.println("El archivo especificado no existe.");
+			}	
+		} catch (IOException error) {
+			System.out.println(error.getMessage());
+		}
+		return imprimir;
 	}
 	
 	// ESCRIBIR ARCHIVO
@@ -67,111 +72,46 @@ public class Archivo {
 	}
 	
 	// ABRIR CONEXIÓN ARCHIVO MODO LECTURA
-	public static BufferedReader abrirArchivoLectura(String ruta) throws IOException {
+	public static BufferedReader abrirArchivoLectura(String ruta) {
 		File archivo = new File(ruta);
-		if (archivo.exists()) {
-			FileReader archivoLectura = new FileReader (archivo);
-			BufferedReader leyendo = new BufferedReader(archivoLectura);
-			return leyendo;
-		} else {
-			throw new IOException("El archivo especificado no existe.");
-		}	
+		BufferedReader leyendo = null;
+		try {
+			if (archivo.exists()) {
+				FileReader archivoLectura = new FileReader (archivo);
+				leyendo = new BufferedReader(archivoLectura);
+			} else {
+				System.out.println("El archivo especificado no existe.");
+			}	
+		} catch (IOException error) {
+			System.out.println(error.getMessage());
+		}
+		return leyendo;
 	}
 	
 	// LEER ARCHIVO
-	public static ArrayList <String> leerArchivo (BufferedReader leyendo) throws IOException {
+	public static ArrayList <String> leerArchivo (BufferedReader leyendo) {
 		ArrayList <String> listaGeneral = new ArrayList <String>();
-		String aux = leyendo.readLine();
-		while(aux != null) {
-			listaGeneral.add(aux);
-			aux = leyendo.readLine();
+		try {
+			String aux = leyendo.readLine();
+			while(aux != null) {
+				listaGeneral.add(aux);
+				aux = leyendo.readLine();
+			}
+		} catch ( IOException error) {
+			System.out.println(error.getMessage());
 		}
 		return listaGeneral;
 	}
 	
 	
 	// METODO PARA CERRAR CONEXION CON UN ARCHIVO MODO LECTURA
-	public static void cerrarArchivoLectura (BufferedReader leyendo) throws IOException {
-		if(leyendo != null) {
-			leyendo.close();
-		}
-	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//	//METODO PARA ABRIR CONEXION PARA LECTURA
-//	public static BufferedReader abrirConexionLectura(String ruta) throws FileNotFoundException {
-//	    File miArchivo = new File(ruta);
-//	    if (miArchivo.exists()) {
-//	        return new BufferedReader(new FileReader(miArchivo));
-//	    } else {
-//	        throw new FileNotFoundException("El archivo especificado no existe.");
-//	    }
-//	}
-//	
-//	public static ArrayList<String> leerArchivo (BufferedReader lectura) {
-//		ArrayList<String> listaRetorno = new ArrayList<String>();
-//		try {
-//			String contenido = lectura.readLine();
-//			while (contenido != null) {
-//				listaRetorno.add(contenido);
-//				contenido = lectura.readLine();
-//			}
-//		} catch ( IOException error) {
-//			System.out.println(error.getMessage());
-//		}
-//		return listaRetorno;
-//	}
-//	
-//	
-//	//METODO PARA CERRAR LA CONEXION DE LECTURA
-//	public static void cerrarConexionLecutra(BufferedReader escritura) {
-//	    if (escritura != null) {
-//	        try {
-//				escritura.close();
-//			} catch (IOException error) {
-//				System.out.println("ERROR: " + error.getMessage());
-//			}
-//	    }
-//	}
-//	
+	public static void cerrarArchivoLectura (BufferedReader leyendo) {
+		if (leyendo != null) {
+	        try {
+	        	leyendo.close();
+			} catch (IOException error) {
+				System.out.println("ERROR: " + error.getMessage());
+			}
+	    }
+	}	
 }
