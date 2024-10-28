@@ -36,6 +36,9 @@ public class Usuario {
 	public Persona getPropetario() {
 		return propetario;
 	}
+	public void setPropetario(Persona propetario) {
+		this.propetario = propetario;
+	}
 	
 	// Metodos
 	public void agregarUsuario (Persona propetario) {

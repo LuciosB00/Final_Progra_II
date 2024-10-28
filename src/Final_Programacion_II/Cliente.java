@@ -30,6 +30,14 @@ public class Cliente extends Persona{
 		this.ctacte = ctacte;
 	}
 	
+	//Setters y Getters
+	public CuentaCorriente getCtacte() {
+		return ctacte;
+	}
+	public void setCtacte(CuentaCorriente ctacte) {
+		this.ctacte = ctacte;
+	}
+
 	// Metodos
 	public void verCtaCte () {
 		

@@ -91,6 +91,9 @@ public class Producto {
 	public Categoria getCategoria() {
 		return categoria;
 	}
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
 
 	// Metodos
 	public static void agregarProducto () {
@@ -132,10 +135,19 @@ public class Producto {
 	}
 	
 	public Producto busquedaProducto () {
-		// BUSCAR POR CODIGO
-		// BUSCAR POR CATEGORIA
-		// BUSCAR POR MARCA
-		// BUSCAR POR TALLE
+		int codigo; String codigoAux=null;
+		Scanner teclado = new Scanner (System.in);
+		
+		codigo = MetodosGeneral.castearEntero("Ingrese el codigo del producto a buscar: ", codigoAux);
+		
+		for(Producto elemento : listaProductos) {
+			if(codigo == elemento.getCodigo()) {
+				System.out.println("El producto SI fue encontrado.");
+				return elemento;
+			}
+		}
+		
+		System.out.println("El producto NO fue encontrado.");
 		return null;
 	}
 	

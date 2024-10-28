@@ -13,6 +13,14 @@ public class CuentaCorriente {
 		this.movimientos = movimientos;
 	}
 	
+	//Setters y Getters
+	public ArrayList <Movimiento> getMovimientos (){
+		return movimientos;
+	}
+	public void setMovimientos (ArrayList <Movimiento> movimientos) {
+		this.movimientos = movimientos;
+	}
+	
 	//Metodos
 	public void agregarMovimiento (Movimiento movimiento) {
 		movimientos.add(movimiento);

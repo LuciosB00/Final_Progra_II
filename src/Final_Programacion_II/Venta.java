@@ -20,6 +20,7 @@ public class Venta {
 		this.total = total;
 		this.cantidad = cantidad;
 		this.pago = pago;
+		this.productos = productos;
 	}
 	
 	// Setters y Getters
@@ -47,13 +48,22 @@ public class Venta {
 	public FormaPago getPago() {
 		return pago;
 	}
+	public void getPago(FormaPago pago) {
+		this.pago = pago;
+	}
 
 	public Cliente getCliente() {
 		return cliente;
 	}
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
 
 	public Vector <Producto> getVectorProducto() {
 		return productos;
+	}
+	public void setVectorProducto(Vector <Producto> productos) {
+		this.productos = productos;
 	}
 	
 	// Metodos

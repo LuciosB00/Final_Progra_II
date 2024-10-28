@@ -119,9 +119,15 @@ public class Persona {
 	public Provincia getProvincia() {
 		return provincia;
 	}
+	public void setProvincia(Provincia provincia) {
+		this.provincia = provincia;
+	}
 	
 	public Sexo getSexo() {
 		return sexo;
+	}
+	public void setSexo(Sexo sexo) {
+		this.sexo = sexo;
 	}
 	
 	// Metodos
