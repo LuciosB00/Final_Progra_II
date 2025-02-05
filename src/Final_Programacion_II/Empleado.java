@@ -76,32 +76,38 @@ public class Empleado extends Persona{
 	}
 	
 	// Metodos
-	public static void agregarEmpleado () {
+	public static void altaEmpleado () {
 		Scanner teclado = new Scanner(System.in);
 		
 		String nombre, apellido, DNI = null, telefono, direccion, localidad; int dni;
 		
 		System.out.println("Ingrese el nombre: ");
 		nombre = teclado.nextLine();
+		
 		System.out.println("Ingrese el apellido: ");
 		apellido = teclado.nextLine();
-		System.out.println("Ingrese el dni: ");
+		
 		dni = MetodosGeneral.castearEntero ("Ingrese su DNI:", DNI);
-		Sexo genero = MetodosGeneral.escogerGenero();
+		
+		Sexo genero = Sexo.escogerGenero();
 		
 		System.out.println("Ingrese el telefono: ");
 		telefono = teclado.nextLine();
+		
 		System.out.println("Ingrese el direccion: ");
 		direccion = teclado.nextLine();
+		
 		LocalDate fechaNac = MetodosGeneral.crearFecha("Ingrese fecha de nacimiento:");
 		
-		Provincia prov = MetodosGeneral.escogerProvincia();
-		System.out.println("Ingrese el localidad: ");
+		Provincia prov = Provincia.escogerProvincia();
+		
+		System.out.println("Ingrese la localidad: ");
 		localidad = teclado.nextLine();
 		
-		boolean activo = MetodosGeneral.escogerBooleano("¿Está activo?:");
+		boolean activo = true;
 		
-		LocalDate fechaIngreso = MetodosGeneral.crearFecha("Ingrese la fecha de ingreso:"); 
+		LocalDate fechaIngreso = LocalDate.now();
+		
 		LocalDate fechaEgreso = MetodosGeneral.crearFecha("Ingrese la fecha de egreso:");
 		
 		int legajo; double salario;
@@ -110,36 +116,105 @@ public class Empleado extends Persona{
 		legajo = MetodosGeneral.castearEntero("Ingrese el legajo del empleado:", legajoAux);
 		salario = MetodosGeneral.castearDecimal("Ingrese el salario del empleado:", salarioAux);
 		
+		teclado.close();
+		
 		Empleado nuevoEmpleado = new Empleado (nombre, apellido, dni, activo, genero, telefono, direccion, fechaNac, prov, localidad, fechaIngreso, fechaEgreso, legajo, salario);
 		listaEmpleados.add(nuevoEmpleado);
 		Persona.listaPersonas.add(nuevoEmpleado);
 	}
-	
-	public Empleado altaEmpleado () {
-		return null;
-	}
 
-	public void bajarEmpleado () {
-		
+	public void bajarEmpleado (Empleado empleado) {
+		if (empleado != null) {
+			empleado.setActivo(false);
+		}
 	}
 	
-	public void modificarEmpleado () {
-		// MODIFICAR ALGÚN DATO DE ALGÚN EMPLEADO
+	public void modificarEmpleado (Empleado empleado) {
+		if (empleado != null) {
+			
+			super.modificarPersona(empleado);
+			
+			System.out.println("1 - Modificar fecha ingreso.");
+			System.out.println("2 - Modificar fecha egreso.");
+			System.out.println("3 - Modificar legajo.");
+			System.out.println("4 - Modificar salario.");
+			System.out.println("5 - Salir.");
+			
+			String numAux=null; int num=0;
+			do {
+				num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
+			}while(num < 1 && num > 5);
+			
+			switch(num) {
+					case 1:
+						LocalDate fechaIngreso = LocalDate.now();
+						empleado.setFechaIngreso(fechaIngreso);
+						break;
+						
+					case 2:
+						LocalDate fechaEgreso = MetodosGeneral.crearFecha("Ingrese la fecha de egreso:");
+						empleado.setFechaEgreso(fechaEgreso);
+						break;
+							
+					case 3:
+						String legajoAux = null;
+						int legajo = MetodosGeneral.castearEntero("Ingrese el legajo del empleado:", legajoAux);
+						empleado.setLegajo(legajo);
+						break;
+						
+					case 4:
+						String salarioAux = null;
+						double salario = MetodosGeneral.castearDecimal("Ingrese el salario del empleado:", salarioAux);
+						empleado.setSalario(salario);
+						break;
+						
+					case 5:
+						System.out.println("Salinedo...");
+						break;
+							
+					default:
+						break;
+			}
+		} else {
+			System.out.println("No se encontraron los datos.");
+		}
 	}
 	
-	public Empleado buscarEmpleado (int numero) {
-		System.out.println("Buscar empleado por legajo:");
-		for(Empleado elemento: listaEmpleados) {
-			if(numero == elemento.getLegajo()) {
-				System.out.println("El empleado ha sido encontrado: " + elemento.getNombre());
+	public static Empleado buscarEmpleadoLegajo () {
+		int num; String numAux=null;
+		num = MetodosGeneral.castearEntero("Ingrese el legajo del empleado a buscar: ", numAux);
+		for(Empleado elemento : listaEmpleados) {
+			if(num == elemento.getDni()) {
+				System.out.println("El empleado SI fue encontrada.");
 				return elemento;
 			}
 		}
-		System.out.println("El legajo del empleado no ha sido contrado.");
+		System.out.println("El empelado NO fue encontrado.");
 		return null;
 	}
 	
-	public ArrayList <Empleado> listarEmpleado (){
-		return null;
+	public void datosEmpleado (Empleado empleado) {
+		if(empleado != null) {
+			super.datosPersona(empleado);
+			
+			System.out.println("Datos laborales:");
+			System.out.println("N° de legajo: " + empleado.getLegajo());
+			System.out.println("Salario: " + empleado.getSalario());
+			System.out.println("Fecha de ingreso: " + empleado.getFechaIngreso());
+			System.out.println("Fecha de egreso: " + empleado.getFechaEgreso());
+			System.out.println("------------------------------");
+		} else {
+			System.out.println("No se encontraron los datos.");
+		}
+	}
+	
+	public static void listarEmpleados (){
+		if(Empleado.listaEmpleados != null) {
+			for (Empleado elemento : listaEmpleados) {
+				elemento.datosEmpleado(elemento);
+			}
+		} else {
+			System.out.println("No se encontraron los datos.");
+		}
 	}
 }

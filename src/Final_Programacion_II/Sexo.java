@@ -15,4 +15,18 @@ public enum Sexo {
 	public String obtenerSexo () {
 		return this.detalleSexo;
 	}
+	
+	public static Sexo escogerGenero () {
+		int seleccion; String seleccionAux = null;
+		
+		do {
+			System.out.println("Generos disponibles:");
+			for(Sexo genero: Sexo.values()) {
+				System.out.println(genero.ordinal() + 1 + "." + genero.obtenerSexo());
+			}
+			seleccion = MetodosGeneral.castearEntero("Seleccione algún genero: ", seleccionAux);
+		}while(seleccion < 1 || seleccion > 3);
+		
+		return Sexo.values()[seleccion - 1];
+	}
 }

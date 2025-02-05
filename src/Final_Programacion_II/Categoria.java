@@ -15,4 +15,18 @@ public enum Categoria {
 	public String obtenerCategoria () {
 		return this.detalleCategoria;
 	}
+	
+	public static Categoria escogerCategoria () {
+		int seleccion; String seleccionAux = null;
+		
+		do {
+			System.out.println("Provincias disponibles:");
+			for(Categoria cate: Categoria.values()) {
+				System.out.println(cate.ordinal() + 1 + "." + cate.obtenerCategoria());
+			}
+			seleccion = MetodosGeneral.castearEntero("Seleccione alguna categoria: ", seleccionAux);
+		}while(seleccion < 1 || seleccion > 3);
+		
+		return Categoria.values()[seleccion - 1];
+	}
 }
