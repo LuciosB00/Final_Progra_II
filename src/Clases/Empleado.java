@@ -1,10 +1,14 @@
-package Final_Programacion_II;
+package Clases;
 
+import Final_Programacion_II.MetodosGeneral;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Empleado extends Persona{
+public class Empleado extends Persona implements Serializable{
+	private static final long serialVersionUID = 1L;
 	public static ArrayList <Empleado> listaEmpleados = new ArrayList <Empleado> ();
 
 	// Atributos
@@ -116,11 +120,11 @@ public class Empleado extends Persona{
 		legajo = MetodosGeneral.castearEntero("Ingrese el legajo del empleado:", legajoAux);
 		salario = MetodosGeneral.castearDecimal("Ingrese el salario del empleado:", salarioAux);
 		
-		teclado.close();
-		
 		Empleado nuevoEmpleado = new Empleado (nombre, apellido, dni, activo, genero, telefono, direccion, fechaNac, prov, localidad, fechaIngreso, fechaEgreso, legajo, salario);
 		listaEmpleados.add(nuevoEmpleado);
 		Persona.listaPersonas.add(nuevoEmpleado);
+		
+		teclado.close();
 	}
 
 	public void bajarEmpleado (Empleado empleado) {

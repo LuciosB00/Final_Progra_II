@@ -1,4 +1,6 @@
-package Final_Programacion_II;
+package Clases;
+
+import Final_Programacion_II.MetodosGeneral;
 
 public enum FormaPago {
 	

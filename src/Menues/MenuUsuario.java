@@ -1,9 +1,10 @@
 package Menues;
 
 import java.util.ArrayList;
+
+import Clases.Persona;
+import Clases.Usuario;
 import Final_Programacion_II.MetodosGeneral;
-import Final_Programacion_II.Persona;
-import Final_Programacion_II.Usuario;
 
 public class MenuUsuario {
 	

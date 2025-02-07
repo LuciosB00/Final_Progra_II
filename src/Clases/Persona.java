@@ -1,10 +1,14 @@
-package Final_Programacion_II;
+package Clases;
 
+import Final_Programacion_II.MetodosGeneral;
 import java.time.LocalDate;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Persona {
+public class Persona implements Serializable{
+	// Atributos static
+	private static final long serialVersionUID = 1L;
 	public static ArrayList <Persona> listaPersonas = new ArrayList <Persona> ();
 
 	// Atributos
@@ -142,29 +146,29 @@ public class Persona {
 		System.out.println("Ingrese el apellido: ");
 		apellido = teclado.nextLine();
 		
-		dni = MetodosGeneral.castearEntero ("Ingrese su DNI:", DNI);
-		
-		Sexo genero = Sexo.escogerGenero();
-		
 		System.out.println("Ingrese el telefono: ");
 		telefono = teclado.nextLine();
 		
 		System.out.println("Ingrese el direccion: ");
 		direccion = teclado.nextLine();
 		
-		LocalDate fechaNac = MetodosGeneral.crearFecha("Ingrese fecha de nacimiento:");
-		
-		Provincia prov = Provincia.escogerProvincia();
-		
 		System.out.println("Ingrese el localidad: ");
 		localidad = teclado.nextLine();
 		
 		boolean activo = true;
 		
-		teclado.close();
+		dni = MetodosGeneral.castearEntero ("Ingrese su DNI: ", DNI);
+		
+		Sexo genero = Sexo.escogerGenero();
+		
+		Provincia prov = Provincia.escogerProvincia();
+		
+		LocalDate fechaNac = MetodosGeneral.crearFecha("Ingrese fecha de nacimiento:");
 		
 		Persona nuevaPersona = new Persona(nombre, apellido, dni, activo, genero, telefono, direccion, fechaNac, prov, localidad);
 		listaPersonas.add(nuevaPersona);
+		
+		teclado.close();
 	}
 	
 	public static Persona buscarPersonaDni () {
@@ -230,63 +234,63 @@ public class Persona {
 			}while(num < 1 && num > 10);
 			
 			switch(num) {
-					case 1:
-						System.out.println("Ingrese el nombre: ");
-						String nombre = teclado.nextLine();
-						persona.setNombre(nombre);
-						break;
-						
-					case 2:
-						System.out.println("Ingrese el apellido: ");
-						String apellido = teclado.nextLine();
-						persona.setApellido(apellido);
-						break;
-						
-					case 3:
-						String DNI = null;
-						int dni = MetodosGeneral.castearEntero ("Ingrese su DNI:", DNI);
-						persona.setDni(dni);
-						break;
-						
-					case 4:
-						Sexo genero = Sexo.escogerGenero();
-						persona.setSexo(genero);
-						break;
-						
-					case 5:
-						System.out.println("Ingrese el telefono: ");
-						String telefono = teclado.nextLine();
-						persona.setTelefono(telefono);
-						break;
-						
-					case 6:
-						System.out.println("Ingrese el direccion: ");
-						String direccion = teclado.nextLine();
-						persona.setDireccion(direccion);
-						break;
-						
-					case 7:
-						LocalDate fechaNac = MetodosGeneral.crearFecha("Ingrese fecha de nacimiento:");
-						persona.setFachaNacimiento(fechaNac);
-						break;
-						
-					case 8:
-						Provincia prov = Provincia.escogerProvincia();
-						persona.setProvincia(prov);
-						break;
-						
-					case 9:
-						System.out.println("Ingrese el localidad: ");
-						String localidad = teclado.nextLine();
-						persona.setLocalidad(localidad);
-						break;
-						
-					case 10:
-						System.out.println("Saliendo...");
-						break;
-						
-					default:
-						break;
+			case 1:
+				System.out.println("Ingrese el nombre: ");
+				String nombre = teclado.nextLine();
+				persona.setNombre(nombre);
+				break;
+							
+			case 2:
+				System.out.println("Ingrese el apellido: ");
+				String apellido = teclado.nextLine();
+				persona.setApellido(apellido);
+				break;
+							
+			case 3:
+				String DNI = null;
+				int dni = MetodosGeneral.castearEntero ("Ingrese su DNI:", DNI);
+				persona.setDni(dni);
+				break;
+							
+			case 4:
+				Sexo genero = Sexo.escogerGenero();
+				persona.setSexo(genero);
+				break;
+							
+			case 5:
+				System.out.println("Ingrese el telefono: ");
+				String telefono = teclado.nextLine();
+				persona.setTelefono(telefono);
+				break;
+							
+			case 6:
+				System.out.println("Ingrese el direccion: ");
+				String direccion = teclado.nextLine();
+				persona.setDireccion(direccion);
+				break;
+							
+			case 7:
+				LocalDate fechaNac = MetodosGeneral.crearFecha("Ingrese fecha de nacimiento:");
+				persona.setFachaNacimiento(fechaNac);
+				break;
+				
+			case 8:
+				Provincia prov = Provincia.escogerProvincia();
+				persona.setProvincia(prov);
+				break;
+							
+			case 9:
+				System.out.println("Ingrese el localidad: ");
+				String localidad = teclado.nextLine();
+				persona.setLocalidad(localidad);
+				break;
+				
+			case 10:
+				System.out.println("Saliendo...");
+				break;
+							
+			default:
+				break;
 			}
 			teclado.close();
 		} else {
@@ -298,9 +302,5 @@ public class Persona {
 		if (persona != null) {
 			persona.setActivo(false);
 		}
-	}
-	
-	public static void castearPersona(String...contenido) {
-		
 	}
 }

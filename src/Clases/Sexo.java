@@ -1,4 +1,6 @@
-package Final_Programacion_II;
+package Clases;
+
+import Final_Programacion_II.MetodosGeneral;
 
 public enum Sexo {
 	
@@ -17,7 +19,7 @@ public enum Sexo {
 	}
 	
 	public static Sexo escogerGenero () {
-		int seleccion; String seleccionAux = null;
+		int seleccion = 0; String seleccionAux = null;
 		
 		do {
 			System.out.println("Generos disponibles:");

@@ -1,10 +1,13 @@
-package Final_Programacion_II;
+package Clases;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Vector;
+import Final_Programacion_II.MetodosGeneral;
 
-public class Venta {
+public class Venta implements Serializable{
+	private static final long serialVersionUID = 1L;
 	public static ArrayList <Venta> listaVentas = new ArrayList <Venta> ();
 	
 	// Atributos
@@ -97,20 +100,17 @@ public class Venta {
 		detalle = teclado.nextLine();
 		
 		for (Producto elemento : productos) {
-			cantidad++;
-		}
-		
-		for (Producto elemento : productos) {
 			total += elemento.getPrecio();
+			cantidad++;
 		}
 				
 		pago = FormaPago.escogerFomaPago();
 		boolean activo = true;
 		
-		teclado.close();
-		
 		Venta nuevaVenta = new Venta (codigo, detalle, total, activo, cantidad, pago, cliente, productos);
 		listaVentas.add(nuevaVenta);
+		
+		teclado.close();
 	}
 	
 	public void bajaVenta (Venta venta) {

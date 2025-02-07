@@ -2,8 +2,8 @@ package Menues;
 
 import java.util.ArrayList;
 
+import Clases.Persona;
 import Final_Programacion_II.MetodosGeneral;
-import Final_Programacion_II.Persona;
 
 public class MenuPersona {
 	

@@ -1,5 +1,53 @@
 package Archivos;
 
-public class ArchivoVenta {
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
+import Clases.Venta;
+
+public class ArchivoVenta {
+	
+	// CREAR ARCHIVO
+	public static void archivoVenta() {
+		String ruta = "Carpeta General" + File.separator + "venta.dat";
+		File archivo = new File(ruta);
+		if (archivo.exists()==false){
+			try {
+				if (archivo.createNewFile()) {
+					System.out.println("El archivo se creó con exito");
+				}
+			} catch (IOException error) {
+				System.out.println("ERROR: " + error.getMessage());
+			}
+		} else {
+			System.out.println("El archivo que intenta crear ya existe.");
+		}
+	}
+	
+	// SERIALIZAR
+	public static void guardarVentas() {
+		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("ventas.dat"))) {
+			oos.writeObject(Venta.listaVentas);
+			System.out.println("Archivo guardado correctamente.");
+		} catch (IOException error) {
+			System.out.println("Error al guardar: " + error.getMessage());
+		}
+	}
+
+	// DESERIALIZAR
+	public static void cargarPersonas() {
+		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("venta.dat"))) {
+			Venta.listaVentas = (ArrayList <Venta>) ois.readObject();
+			System.out.println("Archivo cargado correctamente.");
+		} catch (IOException error) {
+			System.out.println("Error al cargar: " + error.getMessage());
+		} catch (ClassNotFoundException error) {
+			System.out.println("Clase no encontrada: " + error.getMessage());
+		}
+	}
 }

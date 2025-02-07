@@ -1,10 +1,13 @@
-package Final_Programacion_II;
+package Clases;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.Serializable;
 import java.lang.String;
+import Final_Programacion_II.MetodosGeneral;
 
-public class CuentaCorriente {
+public class CuentaCorriente implements Serializable{
+	private static final long serialVersionUID = 1L;
 	public static ArrayList <CuentaCorriente> listaCtaCtes = new ArrayList <CuentaCorriente> ();
 	
 	// Atributos
@@ -50,10 +53,10 @@ public class CuentaCorriente {
 		int codigo; String codigoAux = null;
 		codigo = MetodosGeneral.castearEntero("Ingrese el codigo de la cuenta: ", codigoAux);
 		
-		teclado.close();
-		
 		CuentaCorriente nuevaCtaCte = new CuentaCorriente(movimientos, detalle, codigo);
 		listaCtaCtes.add(nuevaCtaCte);
+		
+		teclado.close();
 	}
 	
 	public void agregarMovimiento (ArrayList <Movimiento> movimientos, Movimiento movimiento) {
@@ -127,6 +130,8 @@ public class CuentaCorriente {
 				break;
 			}
 			teclado.close();
+		}else {
+			System.out.println("No se han encontrado los datos.");
 		}
 	}
 	

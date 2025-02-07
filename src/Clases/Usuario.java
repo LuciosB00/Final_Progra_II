@@ -1,9 +1,13 @@
-package Final_Programacion_II;
+package Clases;
 
+import Final_Programacion_II.MetodosGeneral;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Usuario {
+public class Usuario implements Serializable{
+	private static final long serialVersionUID = 1L;
 	public static ArrayList <Usuario> listaUsuarios = new ArrayList <Usuario> ();
 
 	// Atributos
@@ -63,10 +67,10 @@ public class Usuario {
 			
 			boolean activo = true;
 			
-			teclado.close();
-			
 			Usuario nuevoUsuario = new Usuario (usuario, clave, propietario, activo);
 			listaUsuarios.add(nuevoUsuario);
+			
+			teclado.close();
 		}else {
 			System.out.println("No se encontraron los datos.");
 		}

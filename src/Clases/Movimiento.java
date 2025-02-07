@@ -1,9 +1,13 @@
-package Final_Programacion_II;
+package Clases;
 
+import Final_Programacion_II.MetodosGeneral;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Movimiento {
+public class Movimiento implements Serializable{
+	private static final long serialVersionUID = 1L;
 	public static ArrayList <Movimiento> listaMovimientos = new ArrayList <Movimiento> ();
 	
 	// Atributos
@@ -87,10 +91,10 @@ public class Movimiento {
 		
 		boolean activo = true;
 		
-		teclado.close();
-		
 		Movimiento nuevoMovimiento = new Movimiento (codigo, saldo, detalle, montoDebe, montoHaber, activo);
 		listaMovimientos.add(nuevoMovimiento);
+		
+		teclado.close();
 	}
 	
 	public void modificarMovimiento (Movimiento movimiento) {
@@ -110,42 +114,42 @@ public class Movimiento {
 			}while(num < 1 && num > 9);
 			
 			switch(num) {
-					case 1:
-						String codigoAux = null;
-						int codigo = MetodosGeneral.castearEntero("Ingrese el codigo del movimiento:", codigoAux);
-						movimiento.setCodigo(codigo);
-						break;
+			case 1:
+				String codigoAux = null;
+				int codigo = MetodosGeneral.castearEntero("Ingrese el codigo del movimiento:", codigoAux);
+				movimiento.setCodigo(codigo);
+				break;
 						
-					case 2:
-						System.out.println("Ingrese detalle del movimiento:");
-						String detalle = teclado.nextLine();
-						movimiento.setDetalle(detalle);
-						break;
+			case 2:
+				System.out.println("Ingrese detalle del movimiento:");
+				String detalle = teclado.nextLine();
+				movimiento.setDetalle(detalle);
+				break;
 						
-					case 3:
-						String saldoAux = null;
-						double saldo = MetodosGeneral.castearDecimal("Ingrese el saldo del movimiento:", saldoAux);
-						movimiento.setSaldo(saldo);
-						break;
+			case 3:
+				String saldoAux = null;
+				double saldo = MetodosGeneral.castearDecimal("Ingrese el saldo del movimiento:", saldoAux);
+				movimiento.setSaldo(saldo);
+				break;
 						
-					case 4:
-						String montoDebeAux = null;
-						double montoDebe = MetodosGeneral.castearDecimal("Ingrese el monto a deber:", montoDebeAux);
-						movimiento.setMontoDebe(montoDebe);
-						break;
+			case 4:
+				String montoDebeAux = null;
+				double montoDebe = MetodosGeneral.castearDecimal("Ingrese el monto a deber:", montoDebeAux);
+				movimiento.setMontoDebe(montoDebe);
+				break;
 					
-					case 5:
-						String montoHaberAux = null;
-						double montoHaber = MetodosGeneral.castearDecimal("Ingrese el mono de haber:", montoHaberAux);
-						movimiento.setMontoHaber(montoHaber);
-						break;
+			case 5:
+				String montoHaberAux = null;
+				double montoHaber = MetodosGeneral.castearDecimal("Ingrese el mono de haber:", montoHaberAux);
+				movimiento.setMontoHaber(montoHaber);
+				break;
 						
-					case 6:
-						System.out.println("Saliendo...");
-						break;
+			case 6:
+				System.out.println("Saliendo...");
+				break;
 						
-					default:
-						break;
+			default:
+				break;
 			}
 			teclado.close();
 		}else {

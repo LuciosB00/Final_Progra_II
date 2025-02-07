@@ -1,16 +1,12 @@
 package Final_Programacion_II;
 
-import java.util.Scanner;
+import Menues.Menus;
 
 public class Pruebas_Final {
 
 	public static void main(String[] args) {
 		
-		
-		
-		
-		
-		
+		Menus.menuPrincipal();
 		
 	
 	}

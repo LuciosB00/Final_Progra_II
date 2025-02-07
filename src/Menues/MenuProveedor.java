@@ -1,9 +1,10 @@
 package Menues;
 
 import java.util.ArrayList;
-import Final_Programacion_II.CuentaCorriente;
+
+import Clases.CuentaCorriente;
+import Clases.Proveedor;
 import Final_Programacion_II.MetodosGeneral;
-import Final_Programacion_II.Proveedor;
 
 public class MenuProveedor {
 	

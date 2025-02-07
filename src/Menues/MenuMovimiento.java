@@ -1,8 +1,9 @@
 package Menues;
 
 import java.util.ArrayList;
+
+import Clases.Movimiento;
 import Final_Programacion_II.MetodosGeneral;
-import Final_Programacion_II.Movimiento;
 
 public class MenuMovimiento {
 	
@@ -17,7 +18,7 @@ public class MenuMovimiento {
 		String numAux=null; int num=0;
 		do {
 			num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-		}while(num < 1 && num > 3);
+		}while(num < 1 || num > 3);
 		
 		switch(num) {
 		case 1:
@@ -50,7 +51,7 @@ public class MenuMovimiento {
 		String numAux=null; int num=0;
 		do {
 			num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-		}while(num < 1 && num > 5);
+		}while(num < 1 || num > 5);
 					
 		switch(num) {
 		case 1:
@@ -90,7 +91,7 @@ public class MenuMovimiento {
 		String numAux=null; int num=0;
 		do {
 			num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-		}while(num < 1 && num > 4);
+		}while(num < 1 || num > 4);
 					
 		switch(num) {
 		case 1:
@@ -125,7 +126,7 @@ public class MenuMovimiento {
 			String numAux=null; int num=0;
 			do {
 				num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-			}while(num < 1 && num > limit+1);
+			}while(num < 1 || num > limit+1);
 			
 			return lista.get(num-1);
 		}else {

@@ -49,11 +49,11 @@ public class MetodosGeneral {
 	// CASTEO DE DATOS
 	public static int castearEntero (String mensaje, String dato) {
 		int num = 0; boolean flag = true;
-		Scanner entradaTeclado= new Scanner(System.in);
+		Scanner teclado = new Scanner(System.in);
 		
 		do {
 			System.out.print(mensaje);
-			dato = entradaTeclado.nextLine();
+			dato = teclado.nextLine();
 			if(Excepciones.verificarEntero(dato)) {
 				num = Integer.parseInt(dato);
 				flag = true;
@@ -62,18 +62,16 @@ public class MetodosGeneral {
 			}
 		}while(flag == false);
 		
-		entradaTeclado.close();
-		
 		return num;
 	}
 	
 	public static double castearDecimal (String mensaje, String dato) {
 		double num = 0;	boolean flag = true;
-		Scanner entradaTeclado = new Scanner(System.in);
+		Scanner teclado = new Scanner(System.in);
 		
 		do {
 			System.out.print(mensaje);
-			dato = entradaTeclado.nextLine();
+			dato = teclado.nextLine();
 			if(Excepciones.verificarEntero(dato)) {
 				num = Double.parseDouble(dato);
 				flag = true;
@@ -81,8 +79,6 @@ public class MetodosGeneral {
 				flag = false;
 			}
 		}while(flag == false);
-		
-		entradaTeclado.close();
 		
 		return num;
 	}

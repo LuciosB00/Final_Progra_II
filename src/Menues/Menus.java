@@ -1,15 +1,15 @@
 package Menues;
 
-import Final_Programacion_II.Cliente;
-import Final_Programacion_II.CuentaCorriente;
-import Final_Programacion_II.Empleado;
+import Clases.Cliente;
+import Clases.CuentaCorriente;
+import Clases.Empleado;
+import Clases.Movimiento;
+import Clases.Persona;
+import Clases.Producto;
+import Clases.Proveedor;
+import Clases.Usuario;
+import Clases.Venta;
 import Final_Programacion_II.MetodosGeneral;
-import Final_Programacion_II.Movimiento;
-import Final_Programacion_II.Persona;
-import Final_Programacion_II.Producto;
-import Final_Programacion_II.Proveedor;
-import Final_Programacion_II.Usuario;
-import Final_Programacion_II.Venta;
 
 public class Menus {
 
@@ -24,19 +24,19 @@ public class Menus {
 		String numAux=null; int num=0;
 		do {
 			num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-		}while(num < 1 && num > 4);
+		}while(num < 1 || num > 4);
 			
 		switch(num) {
 		case 1:
-			Menus.menuDatos();
+			Menus.menusDatos();
 			break;
 				
 		case 2:
-			Menus.menuIngreso();
+			Menus.menusIngresar();
 			break;
 				
 		case 3:
-			Menus.menuArchivo();
+			Menus.menusArchivos();
 			break;
 				
 		case 4:
@@ -49,7 +49,7 @@ public class Menus {
 	}
 		
 	//MENUS SECUNDARIOS
-	public static void menuDatos() {
+	public static void menusDatos() {
 		System.out.println("Bienvenido al menú secundario para ver datos:");
 		System.out.println("1 - Menú de personas.");
 		System.out.println("2 - Menú de empleados.");
@@ -65,7 +65,7 @@ public class Menus {
 		String numAux=null; int num=0;
 		do {
 			num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-		}while(num < 1 && num > 10);
+		}while(num < 1 || num > 10);
 			
 		switch(num) {
 		case 1:
@@ -113,7 +113,7 @@ public class Menus {
 		}
 	}
 		
-	public static void menuIngreso() {
+	public static void menusIngresar() {
 		System.out.println("Bienvenido al menú secundario para ingresar datos:");
 		System.out.println("1 - Menú de personas.");
 		System.out.println("2 - Menú de empleados.");
@@ -129,7 +129,7 @@ public class Menus {
 		String numAux=null; int num=0;
 		do {
 			num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-		}while(num < 1 && num > 10);
+		}while(num < 1 || num > 10);
 			
 		switch(num) {
 		case 1:
@@ -177,27 +177,28 @@ public class Menus {
 		}
 	}
 		
-	public static void menuArchivo() {
-		System.out.println("Bienvenido al menú secundario para ingresar datos:");
-		System.out.println("1 - Menú archivos de personas.");
-		System.out.println("2 - Menú archivos de empleados.");
-		System.out.println("3 - Menú archivos de usuarios.");
-		System.out.println("4 - Menú archivos de productos,.");
-		System.out.println("5 - Menú archivos de ventas.");
-		System.out.println("6 - Menú archivos de movimientos.");
-		System.out.println("7 - Menú archivos de cuentas corrientes.");
-		System.out.println("8 - Menú archivos de clientes.");
-		System.out.println("9 - Menú archivos de proveedores.");
-		System.out.println("10 - Salir.");
+	public static void menusArchivos() {
+		System.out.println("Bienvenido al menú secundario para gestionar archivos:");
+		System.out.println("1 - Menú general de archivos.");
+		System.out.println("2 - Menú archivos de personas.");
+		System.out.println("3 - Menú archivos de empleados.");
+		System.out.println("4 - Menú archivos de usuarios.");
+		System.out.println("5 - Menú archivos de productos,.");
+		System.out.println("6 - Menú archivos de ventas.");
+		System.out.println("7 - Menú archivos de movimientos.");
+		System.out.println("8 - Menú archivos de cuentas corrientes.");
+		System.out.println("9 - Menú archivos de clientes.");
+		System.out.println("10 - Menú archivos de proveedores.");
+		System.out.println("11 - Salir.");
 			
 		String numAux=null; int num=0;
 		do {
 			num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-		}while(num < 1 && num > 10);
+		}while(num < 1 || num > 10);
 			
 		switch(num) {
 		case 1:
-				
+			MenuArchivo.menuArchivo();
 			break;
 				
 		case 2:
@@ -233,6 +234,10 @@ public class Menus {
 			break;
 				
 		case 10:
+			
+			break;
+			
+		case 11:
 			System.out.println("Saliendo...");
 			break;
 				

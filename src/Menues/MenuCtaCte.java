@@ -2,9 +2,9 @@ package Menues;
 
 import java.util.ArrayList;
 
-import Final_Programacion_II.CuentaCorriente;
+import Clases.CuentaCorriente;
+import Clases.Movimiento;
 import Final_Programacion_II.MetodosGeneral;
-import Final_Programacion_II.Movimiento;
 
 public class MenuCtaCte {
 	
@@ -19,7 +19,7 @@ public class MenuCtaCte {
 		String numAux=null; int num=0;
 		do {
 			num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-		}while(num < 1 && num > 3);
+		}while(num < 1 || num > 3);
 		
 		switch(num) {
 		case 1:
@@ -51,7 +51,7 @@ public class MenuCtaCte {
 		String numAux=null; int num=0;
 		do {
 			num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-		}while(num < 1 && num > 4);
+		}while(num < 1 || num > 4);
 					
 		switch(num) {
 		case 1:
@@ -85,7 +85,7 @@ public class MenuCtaCte {
 		String numAux=null; int num=0;
 		do {
 			num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-		}while(num < 1 && num > 3);
+		}while(num < 1 || num > 3);
 					
 		switch(num) {
 		case 1:
@@ -116,7 +116,7 @@ public class MenuCtaCte {
 			String numAux=null; int num=0;
 			do {
 				num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-			}while(num < 1 && num > limit+1);
+			}while(num < 1 || num > limit+1);
 			
 			return lista.get(num-1);
 		}else {

@@ -2,10 +2,10 @@ package Menues;
 
 import java.util.ArrayList;
 
-import Final_Programacion_II.Cliente;
+import Clases.Cliente;
+import Clases.Producto;
+import Clases.Venta;
 import Final_Programacion_II.MetodosGeneral;
-import Final_Programacion_II.Producto;
-import Final_Programacion_II.Venta;
 
 public class MenuVenta {
 	

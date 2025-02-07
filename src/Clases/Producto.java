@@ -1,10 +1,14 @@
-package Final_Programacion_II;
+package Clases;
 
+import Final_Programacion_II.MetodosGeneral;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Vector;
 
-public class Producto {
+public class Producto implements Serializable{
+	private static final long serialVersionUID =  1L;
 	public static ArrayList <Producto> listaProductos = new ArrayList <Producto> ();
 	
 	//Atributos
@@ -134,10 +138,10 @@ public class Producto {
 		
 		boolean activo = true;
 		
-		teclado.close();
-		
 		Producto nuevoProducto = new Producto (detalle, codigo, activo, talle, precio, marca, stock, material, categoria);
 		listaProductos.add(nuevoProducto);
+		
+		teclado.close();
 	}
 	
 	public void bajaProducto (Producto producto) {
@@ -168,58 +172,59 @@ public class Producto {
 			}while(num < 1 && num > 9);
 			
 			switch(num) {
-					case 1:
-						String codigoAux = null;
-						int codigo = MetodosGeneral.castearEntero("Ingrese el codigo del producto:", codigoAux);
-						producto.setCodigo(codigo);
-						break;
-					
-					case 2:
-						System.out.println("Ingrese el detalle del producto:");
-						String detalle = teclado.nextLine();
-						producto.setDetalle(detalle);
-						break;
+			case 1:
+				String codigoAux = null;
+				int codigo = MetodosGeneral.castearEntero("Ingrese el codigo del producto:", codigoAux);
+				producto.setCodigo(codigo);
+				break;
+				
+			case 2:
+				System.out.println("Ingrese el detalle del producto:");
+				String detalle = teclado.nextLine();
+				producto.setDetalle(detalle);
+				break;
 						
-					case 3:
-						System.out.println("Ingrese el talle del producto:");
-						String talle = teclado.nextLine();
-						producto.setTalle(talle);
-						break;
+			case 3:
+				System.out.println("Ingrese el talle del producto:");
+				String talle = teclado.nextLine();
+				producto.setTalle(talle);
+				break;
 						
-					case 4:
-						String precioAux = null;
-						double precio = MetodosGeneral.castearDecimal("Ingrese el precio del producto:", precioAux);
-						producto.setPrecio(precio);
-						break;
+			case 4:
+				String precioAux = null;
+				double precio = MetodosGeneral.castearDecimal("Ingrese el precio del producto:", precioAux);
+				producto.setPrecio(precio);
+				break;
 						
-					case 5:
-						System.out.println("Ingrese la marca del producto:");
-						String marca = teclado.nextLine();
-						producto.setMarca(marca);
-						break;
+			case 5:
+				System.out.println("Ingrese la marca del producto:");
+				String marca = teclado.nextLine();
+				producto.setMarca(marca);
+				break;
+				
+			case 6:
+				System.out.println("Ingrese el material del producto:");
+				String material = teclado.nextLine();
+				producto.setMaterial(material);
+				break;
+				
+			case 7:
+				categoria = Categoria.escogerCategoria();
+				producto.setCategoria(categoria);
+				break;
+				
+			case 8:
+				String stockAux = null;
+				int stock = MetodosGeneral.castearEntero("Ingrese el stock del prodcuto:", stockAux);
+				producto.setStock(stock);
+				break;
 						
-					case 6:
-						System.out.println("Ingrese el material del producto:");
-						String material = teclado.nextLine();
-						producto.setMaterial(material);
-						break;
-						
-					case 7:
-						categoria = Categoria.escogerCategoria();
-						producto.setCategoria(categoria);
-						break;
-						
-					case 8:
-						String stockAux = null;
-						int stock = MetodosGeneral.castearEntero("Ingrese el stock del prodcuto:", stockAux);
-						producto.setStock(stock);
-						break;
-						
-					case 9:
-						System.out.println("Saliendo...");
-						break;
-					default:
-						break;
+			case 9:
+				System.out.println("Saliendo...");
+				break;
+				
+			default:
+				break;
 			}
 			teclado.close();
 		} else {

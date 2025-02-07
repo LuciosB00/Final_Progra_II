@@ -2,8 +2,9 @@ package Menues;
 
 import java.util.ArrayList;
 import java.util.Vector;
+
+import Clases.Producto;
 import Final_Programacion_II.MetodosGeneral;
-import Final_Programacion_II.Producto;
 
 public class MenuProducto {
 	

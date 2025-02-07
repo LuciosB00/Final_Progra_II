@@ -1,32 +1,35 @@
-package Final_Programacion_II;
+package Clases;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
+import Final_Programacion_II.MetodosGeneral;
 
-public class Proveedor extends Persona{
-	public static ArrayList <Proveedor> listaProveedores = new ArrayList <Proveedor> ();
-	
+public class Cliente extends Persona implements Serializable{
+	private static final long serialVersionUID = 1L;
+	public static ArrayList <Cliente> listaClientes = new ArrayList <Cliente> ();
+
 	// Atributos
 	private CuentaCorriente ctacte;
 	
 	// Constructor
-	public Proveedor (String nombre, String apellido, int dni, boolean activo, CuentaCorriente ctacte) {
+	public Cliente (String nombre, String apellido, int dni, boolean activo, CuentaCorriente ctacte) {
 		super(nombre, apellido, dni, activo);
 		this.ctacte = ctacte;
 	}
 	
-	public Proveedor (String nombre, String apellido, int dni, boolean activo, Sexo sexo, CuentaCorriente ctacte) {
+	public Cliente (String nombre, String apellido, int dni, boolean activo, Sexo sexo, CuentaCorriente ctacte) {
 		super(nombre, apellido, dni, activo, sexo);
 		this.ctacte = ctacte;
 	}
 	
-	public Proveedor (String nombre, String apellido, int dni, boolean activo, Sexo sexo, String telefono, String direccion, LocalDate fechaNacimiento, CuentaCorriente ctacte) {
+	public Cliente (String nombre, String apellido, int dni, boolean activo, Sexo sexo, String telefono, String direccion, LocalDate fechaNacimiento, CuentaCorriente ctacte) {
 		super(nombre, apellido, dni, activo, sexo, telefono, direccion, fechaNacimiento);
 		this.ctacte = ctacte;
 	}
 	
-	public Proveedor (String nombre, String apellido, int dni, boolean activo, Sexo sexo, String telefono, String direccion, LocalDate fechaNacimiento, Provincia provincia, String localidad, CuentaCorriente ctacte) {
+	public Cliente (String nombre, String apellido, int dni, boolean activo, Sexo sexo, String telefono, String direccion, LocalDate fechaNacimiento, Provincia provincia, String localidad, CuentaCorriente ctacte) {
 		super(nombre, apellido, dni, activo, sexo, telefono, direccion, fechaNacimiento, provincia, localidad);
 		this.ctacte = ctacte;
 	}
@@ -40,7 +43,7 @@ public class Proveedor extends Persona{
 	}
 
 	// Metodos
-	public static void altaProveedor (CuentaCorriente ctacte) {
+	public static void altaCliente (CuentaCorriente ctacte) {
 		Scanner teclado = new Scanner(System.in);
 		
 		String nombre, apellido, DNI = null, telefono, direccion, localidad; int dni;
@@ -70,25 +73,16 @@ public class Proveedor extends Persona{
 		
 		boolean activo = true;
 		
-		teclado.close();
+		Cliente nuevoCliente = new Cliente (nombre, apellido, dni, activo, genero, telefono, direccion, fechaNac, prov, localidad, ctacte);
+		listaClientes.add(nuevoCliente);
+		Persona.listaPersonas.add(nuevoCliente);
 		
-		Proveedor nuevoProveedor = new Proveedor (nombre, apellido, dni, activo, genero, telefono, direccion, fechaNac, prov, localidad, ctacte);
-		listaProveedores.add(nuevoProveedor);
-		Persona.listaPersonas.add(nuevoProveedor);
+		teclado.close();
 	}
 	
-	public void datosProveedor(Proveedor proveedor) {
-		if(proveedor != null) {
-			super.datosPersona(proveedor);
-			proveedor.verCtaCte(proveedor.getCtacte());
-		}else {
-			System.out.println("Los datos no se han encontrado.");
-		}
-	}
-	
-	public void modificarProveedor(Proveedor proveedor) {
-		if(proveedor != null) {
-			super.modificarPersona(proveedor);
+	public void modificarCliente(Cliente cliente) {
+		if(cliente != null) {
+			super.modificarPersona(cliente);
 			
 			System.out.println("1 - Modificar cuenta corriente.");
 			System.out.println("2 - Salir.");
@@ -115,26 +109,36 @@ public class Proveedor extends Persona{
 		}
 	}
 	
-	public static void listarProveedor() {
-		if(Proveedor.listaProveedores != null) {
-			for(Proveedor elemento : listaProveedores) {
-				elemento.datosProveedor(elemento);
+	public void datosCliente(Cliente cliente) {
+		if(cliente != null) {
+			super.datosPersona(cliente);
+			cliente.verCtaCte(cliente.getCtacte());
+			System.out.println("------------------------------");
+		}else {
+			System.out.println("No se han encontrado datos.");
+		}
+	}
+	
+	public static void listarClientes() {
+		if(Cliente.listaClientes != null) {
+			for(Cliente elemento : listaClientes) {
+				elemento.datosCliente(elemento);
 			}
 		}else {
 			System.out.println("Los datos no se han encontrado.");
 		}
 	}
 	
-	public static Proveedor buscarProveedor() {
+	public static Cliente buscarCliente() {
 		int num; String numAux=null;
-		num = MetodosGeneral.castearEntero("Ingrese el DNI del proveedor a buscar: ", numAux);
-		for(Proveedor elemento : listaProveedores) {
+		num = MetodosGeneral.castearEntero("Ingrese el DNI del cliente a buscar: ", numAux);
+		for(Cliente elemento : listaClientes) {
 			if(num == elemento.getDni()) {
-				System.out.println("El proveedor SI fue encontrada.");
+				System.out.println("El cliente SI fue encontrada.");
 				return elemento;
 			}
 		}
-		System.out.println("El proveedor NO fue encontrado.");
+		System.out.println("El cliente NO fue encontrado.");
 		return null;
 	}
 	
@@ -144,5 +148,14 @@ public class Proveedor extends Persona{
 		}else {
 			System.out.println("No se encontraron los datos.");
 		}
+	}
+	
+	public Cliente enviarCLiente (Cliente cliente) {
+		if(cliente != null) {
+			return cliente;
+		}else {
+			System.out.println("No se encontraron los datos.");
+		}
+		return null;
 	}
 }

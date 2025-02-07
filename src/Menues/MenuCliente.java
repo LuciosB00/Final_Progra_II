@@ -1,9 +1,8 @@
 package Menues;
 
 import java.util.ArrayList;
-
-import Final_Programacion_II.Cliente;
-import Final_Programacion_II.CuentaCorriente;
+import Clases.Cliente;
+import Clases.CuentaCorriente;
 import Final_Programacion_II.MetodosGeneral;
 
 public class MenuCliente {
@@ -19,7 +18,7 @@ public class MenuCliente {
 		String numAux=null; int num=0;
 		do {
 			num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-		}while(num < 1 && num > 3);
+		}while(num < 1 || num > 3);
 		
 		switch(num) {
 		case 1:
@@ -52,7 +51,7 @@ public class MenuCliente {
 		String numAux=null; int num=0;
 		do {
 			num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-		}while(num < 1 && num > 5);
+		}while(num < 1 || num > 5);
 					
 		switch(num) {
 		case 1:
@@ -92,7 +91,7 @@ public class MenuCliente {
 		String numAux=null; int num=0;
 		do {
 			num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-		}while(num < 1 && num > 4);
+		}while(num < 1 || num > 4);
 					
 		switch(num) {
 		case 1:
@@ -127,7 +126,7 @@ public class MenuCliente {
 			String numAux=null; int num=0;
 			do {
 				num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-			}while(num < 1 && num > limit+1);
+			}while(num < 1 || num > limit+1);
 			
 			return lista.get(num-1);
 		}else {

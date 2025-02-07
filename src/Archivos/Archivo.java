@@ -2,12 +2,13 @@ package Archivos;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+
+import Final_Programacion_II.MetodosGeneral;
 
 public class Archivo {
 	
@@ -18,10 +19,10 @@ public class Archivo {
 			if (archivo.mkdir()) {
 				System.out.println("Carpeta creada con exito.");
 			} else {
-				System.out.println("Carpeta NO fue creada.");
-				System.out.println("Revise la ruta enviada.");
-				System.out.println("Revise que la carpeta no exista.");
-				System.out.println("Revise sus permisos.");
+				System.out.println("Carpeta NO fue creada:");
+				System.out.println("Revise si la carpeta ya existe.");
+				System.out.println("Revise si la ruta es correcta.");
+				System.out.println("Revise algún fallo en el proceso.");
 			}
 		}else {
 			System.out.println("No se han encontrado los datos.");
@@ -33,8 +34,12 @@ public class Archivo {
 		if(ruta != null) {
 		    File carpeta = new File(ruta);
 		    if (carpeta.exists()) {
-		        eliminarRecursivo(carpeta);
-		        System.out.println("La carpeta ha sido eliminada correctamente.");
+		    	if(MetodosGeneral.escogerBooleano("¿ESTA SEGURO DE QUE DESEA ELIMINAR LA CARPETA PRINCIPAL? TODOS LOS ARCHIVOS DENTRO SERÁN ELIMINADOS:")) {
+		    		eliminarRecursivo(carpeta);
+		        	System.out.println("La carpeta ha sido eliminada correctamente.");
+		    	}else {
+		    		System.out.println("No se elimino la carpeta.");
+		    	}
 		    } else {
 		        System.out.println("No se elimino nada porque la carpeta no existe.");
 		    }
@@ -43,6 +48,7 @@ public class Archivo {
 		}
 	}
 	
+	// ELIMINAR RECURSIVO
 	private static void eliminarRecursivo(File carpeta) {
 		if(carpeta != null) {
 		    if (carpeta.isDirectory()) {
@@ -59,7 +65,7 @@ public class Archivo {
 		}
 	}
 	
-	// CREAR ARCHIVO TXT
+	// CREAR ARCHIVO
 	public static void crearArchivo(String ruta) {
 		if(ruta != null) {
 			File archivo = new File(ruta);
@@ -79,7 +85,7 @@ public class Archivo {
 		}
 	}
 	
-	// ELIMINAR ARCHIVO TXT
+	// ELIMINAR ARCHIVO
 	public static void eliminarArchivo(String ruta) {
 		if(ruta != null) {
 			File miArchivo = new File (ruta);
@@ -92,6 +98,23 @@ public class Archivo {
 			} else {
 				System.out.println("No se elimino nada porque no existe.");
 			}
+		}else {
+			System.out.println("No se han encontrado los datos.");
+		}
+	}
+	
+	public static void eliminarArchivos(String ruta) {
+		if(ruta != null) {
+			File carpeta = new File(ruta);
+		    if (carpeta.exists() && carpeta.isDirectory()) {
+		        File[] Arregloarchivos = carpeta.listFiles();
+		        if (Arregloarchivos != null) {
+		            for (File file : Arregloarchivos) {
+		                eliminarRecursivo(file);
+		            }
+		        }
+		        System.out.println("Todos el contenido ha sido eliminados.");
+		    }
 		}else {
 			System.out.println("No se han encontrado los datos.");
 		}
