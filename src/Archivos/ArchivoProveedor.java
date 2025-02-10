@@ -13,7 +13,7 @@ import Clases.Proveedor;
 public class ArchivoProveedor {
 	
 	// CREAR ARCHIVO
-	public static void archivoProveedor() {
+	public static void crearArchivoProveedor() {
 		String ruta = "Carpeta General" + File.separator + "proveedor.dat";
 		File archivo = new File(ruta);
 		if (archivo.exists()==false){
@@ -28,12 +28,27 @@ public class ArchivoProveedor {
 			System.out.println("El archivo que intenta crear ya existe.");
 		}
 	}
+	
+	// ELIMINAR ARCHIVO
+	public static void eliminarArchivoProveedor() {
+		String ruta = "Carpeta General" + File.separator + "proveedor.dat";
+		File miArchivo = new File (ruta);
+		if (miArchivo.exists()){
+			if (miArchivo.delete()) {
+				System.out.println("Se ha eliminado correctamente el archivo.");
+			} else {
+				System.out.println("No se ha podido eliminar el archivo.");
+			}
+		} else {
+			System.out.println("No se elimino nada porque no existe.");
+		}
+	}
 
 	// SERIALIZAR
 	public static void guardarProveedores() {
-		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("proveedor.dat"))) {
+		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("Carpeta General" + File.separator + "proveedor.dat"))) {
 			oos.writeObject(Proveedor.listaProveedores);
-			System.out.println("Archivo guardado correctamente.");
+			System.out.println("Archivo proveedor guardado correctamente.");
 		} catch (IOException error) {
 			System.out.println("Error al guardar: " + error.getMessage());
 		}
@@ -41,9 +56,9 @@ public class ArchivoProveedor {
 
 	// DESERIALIZAR
 	public static void cargarProveedores() {
-		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("proveedor.dat"))) {
+		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("Carpeta General" + File.separator + "proveedor.dat"))) {
 			Proveedor.listaProveedores = (ArrayList <Proveedor>) ois.readObject();
-			System.out.println("Archivo cargado correctamente.");
+			System.out.println("Archivo proveedor cargado correctamente.");
 		} catch (IOException error) {
 			System.out.println("Error al cargar: " + error.getMessage());
 		} catch (ClassNotFoundException error) {

@@ -10,34 +10,39 @@ public class MenuCtaCte {
 	
 	//MENU CTA CTE
 	public static void menuDatosCtaCte(ArrayList <CuentaCorriente> lista) {
-		System.out.println("Bienvenido al menú de datos de cuenta/s:");
-		System.out.println("1 - Datos de una cuenta.");
-		System.out.println("2 - Datos de todas las cuentas.");
-		System.out.println("3 - Salir.");
-		
-		CuentaCorriente elemento = null;
-		String numAux=null; int num=0;
-		do {
-			num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-		}while(num < 1 || num > 3);
-		
-		switch(num) {
-		case 1:
-			elemento = menuSelectCtaCte(lista);
-			elemento.datosCtaCte(elemento.getMovimientos());
-			break;
-						
-		case 2:
-			CuentaCorriente.listarCtaCtes();
-			break;
+		if(lista != null) {
+			System.out.println("Bienvenido al menú de datos de cuenta/s:");
+			System.out.println("1 - Datos de una cuenta.");
+			System.out.println("2 - Datos de todas las cuentas.");
+			System.out.println("3 - Salir.");
 			
-		case 3:
-			System.out.println("Saliendo...");
-			break;
-						
-		default:
-			break;
+			CuentaCorriente elemento = null;
+			String numAux=null; int num=0;
+			do {
+				num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
+			}while(num < 1 || num > 3);
+			
+			switch(num) {
+			case 1:
+				elemento = menuSelectCtaCte(lista);
+				elemento.datosCtaCte(elemento.getMovimientos());
+				break;
+							
+			case 2:
+				CuentaCorriente.listarCtaCtes();
+				break;
+				
+			case 3:
+				System.out.println("Saliendo...");
+				break;
+							
+			default:
+				break;
+			}
+		}else {
+			System.out.println("No se han encontrado los datos.");
 		}
+		Menus.menusDatos();
 	}
 			
 	public static void menuIngresoCtaCte(ArrayList <CuentaCorriente> lista) {
@@ -55,16 +60,25 @@ public class MenuCtaCte {
 					
 		switch(num) {
 		case 1:
-			Movimiento.altaMovimiento();
+			CuentaCorriente.altaCtaCte(MenuMovimiento.menuListaMovimientos(Movimiento.listaMovimientos));
 			break;
 						
 		case 2:
-			elemento = CuentaCorriente.buscarCtaCteCodigo();
+			if(lista != null) {
+				elemento = CuentaCorriente.buscarCtaCteCodigo();
+				MenuCtaCte.menuCtaCte(elemento, lista);
+			}else {
+				System.out.println("No se han encontrado los datos.");
+			}
 			break;
 						
 		case 3:
-			elemento = menuSelectCtaCte(lista);
-			elemento.modificarCtaCte(elemento);
+			if(lista != null) {
+				elemento = menuSelectCtaCte(lista);
+				elemento.modificarCtaCte(elemento);
+			}else {
+				System.out.println("No se han encontrado los datos.");
+			}
 			break;
 			
 		case 4:
@@ -74,35 +88,41 @@ public class MenuCtaCte {
 		default:
 			break;
 		}
+		Menus.menusIngresar();
 	}
 	
-	public static void menuCtaCte(CuentaCorriente ctacte) {
-		System.out.println("Bienvenido al menú general de cuenta/s:");
-		System.out.println("1 - Ver datos.");
-		System.out.println("2 - Modificar algún dato.");
-		System.out.println("3 - Salir.");
-	
-		String numAux=null; int num=0;
-		do {
-			num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-		}while(num < 1 || num > 3);
-					
-		switch(num) {
-		case 1:
-			ctacte.datosCtaCte(ctacte.getMovimientos());
-			break;
-			
-		case 2:
-			ctacte.modificarCtaCte(ctacte);
-			break;
-			
-		case 3:
-			System.out.println("Saliendo...");
-			break;
-			
-		default:
-			break;
+	public static void menuCtaCte(CuentaCorriente ctacte, ArrayList <CuentaCorriente> lista) {
+		if(ctacte != null && lista != null) {
+			System.out.println("Bienvenido al menú general de cuenta/s:");
+			System.out.println("1 - Ver datos.");
+			System.out.println("2 - Modificar algún dato.");
+			System.out.println("3 - Salir.");
+		
+			String numAux=null; int num=0;
+			do {
+				num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
+			}while(num < 1 || num > 3);
+						
+			switch(num) {
+			case 1:
+				ctacte.datosCtaCte(ctacte.getMovimientos());
+				break;
+				
+			case 2:
+				ctacte.modificarCtaCte(ctacte);
+				break;
+				
+			case 3:
+				System.out.println("Saliendo...");
+				break;
+				
+			default:
+				break;
+			}
+		}else {
+			System.out.println("No se han encontrado los datos.");
 		}
+		MenuCtaCte.menuIngresoCtaCte(lista);
 	}
 	
 	public static CuentaCorriente menuSelectCtaCte(ArrayList <CuentaCorriente> lista) {

@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Persona implements Serializable{
 	// Atributos static
 	private static final long serialVersionUID = 1L;
-	public static ArrayList <Persona> listaPersonas = new ArrayList <Persona> ();
+	public static ArrayList <Persona> listaPersonas = null;
 
 	// Atributos
 	private int dni;
@@ -166,9 +166,8 @@ public class Persona implements Serializable{
 		LocalDate fechaNac = MetodosGeneral.crearFecha("Ingrese fecha de nacimiento:");
 		
 		Persona nuevaPersona = new Persona(nombre, apellido, dni, activo, genero, telefono, direccion, fechaNac, prov, localidad);
+		Persona.listaPersonas = new ArrayList <Persona> ();
 		listaPersonas.add(nuevaPersona);
-		
-		teclado.close();
 	}
 	
 	public static Persona buscarPersonaDni () {
@@ -231,7 +230,7 @@ public class Persona implements Serializable{
 			String numAux=null; int num=0;
 			do {
 				num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-			}while(num < 1 && num > 10);
+			}while(num < 1 || num > 10);
 			
 			switch(num) {
 			case 1:
@@ -292,7 +291,6 @@ public class Persona implements Serializable{
 			default:
 				break;
 			}
-			teclado.close();
 		} else {
 			System.out.println("No se encontraron los datos.");
 		}
@@ -301,6 +299,8 @@ public class Persona implements Serializable{
 	public void bajaPersona (Persona persona) {
 		if (persona != null) {
 			persona.setActivo(false);
+		}else {
+			System.out.println("No se encontraron los datos.");
 		}
 	}
 }

@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class Empleado extends Persona implements Serializable{
 	private static final long serialVersionUID = 1L;
-	public static ArrayList <Empleado> listaEmpleados = new ArrayList <Empleado> ();
+	public static ArrayList <Empleado> listaEmpleados = null;
 
 	// Atributos
 	private LocalDate fechaIngreso;
@@ -121,10 +121,20 @@ public class Empleado extends Persona implements Serializable{
 		salario = MetodosGeneral.castearDecimal("Ingrese el salario del empleado:", salarioAux);
 		
 		Empleado nuevoEmpleado = new Empleado (nombre, apellido, dni, activo, genero, telefono, direccion, fechaNac, prov, localidad, fechaIngreso, fechaEgreso, legajo, salario);
+		
+		if(Empleado.listaEmpleados == null && Persona.listaPersonas == null) {
+			listaEmpleados = new ArrayList <Empleado> ();
+			listaPersonas = new ArrayList <Persona> ();
+		}
+		if(Empleado.listaEmpleados == null) {
+			listaEmpleados = new ArrayList <Empleado> ();
+		}
+		if(Persona.listaPersonas == null) {
+			listaPersonas = new ArrayList <Persona> ();
+		}
+		
 		listaEmpleados.add(nuevoEmpleado);
 		Persona.listaPersonas.add(nuevoEmpleado);
-		
-		teclado.close();
 	}
 
 	public void bajarEmpleado (Empleado empleado) {
@@ -147,37 +157,37 @@ public class Empleado extends Persona implements Serializable{
 			String numAux=null; int num=0;
 			do {
 				num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-			}while(num < 1 && num > 5);
+			}while(num < 1 || num > 5);
 			
 			switch(num) {
-					case 1:
-						LocalDate fechaIngreso = LocalDate.now();
-						empleado.setFechaIngreso(fechaIngreso);
-						break;
+			case 1:
+				LocalDate fechaIngreso = LocalDate.now();
+				empleado.setFechaIngreso(fechaIngreso);
+				break;
 						
-					case 2:
-						LocalDate fechaEgreso = MetodosGeneral.crearFecha("Ingrese la fecha de egreso:");
-						empleado.setFechaEgreso(fechaEgreso);
-						break;
+			case 2:
+				LocalDate fechaEgreso = MetodosGeneral.crearFecha("Ingrese la fecha de egreso:");
+				empleado.setFechaEgreso(fechaEgreso);
+				break;
 							
-					case 3:
-						String legajoAux = null;
-						int legajo = MetodosGeneral.castearEntero("Ingrese el legajo del empleado:", legajoAux);
-						empleado.setLegajo(legajo);
+			case 3:
+				String legajoAux = null;
+				int legajo = MetodosGeneral.castearEntero("Ingrese el legajo del empleado:", legajoAux);
+				empleado.setLegajo(legajo);
 						break;
 						
-					case 4:
-						String salarioAux = null;
-						double salario = MetodosGeneral.castearDecimal("Ingrese el salario del empleado:", salarioAux);
-						empleado.setSalario(salario);
-						break;
+			case 4:
+				String salarioAux = null;
+				double salario = MetodosGeneral.castearDecimal("Ingrese el salario del empleado:", salarioAux);
+				empleado.setSalario(salario);
+				break;
 						
-					case 5:
-						System.out.println("Salinedo...");
-						break;
-							
-					default:
-						break;
+			case 5:
+				System.out.println("Salinedo...");
+				break;
+						
+			default:
+				break;
 			}
 		} else {
 			System.out.println("No se encontraron los datos.");

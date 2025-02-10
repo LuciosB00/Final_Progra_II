@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class Proveedor extends Persona implements Serializable{
 	private static final long serialVersionUID = 1L;
-	public static ArrayList <Proveedor> listaProveedores = new ArrayList <Proveedor> ();
+	public static ArrayList <Proveedor> listaProveedores = null;
 	
 	// Atributos
 	private CuentaCorriente ctacte;
@@ -45,40 +45,54 @@ public class Proveedor extends Persona implements Serializable{
 
 	// Metodos
 	public static void altaProveedor (CuentaCorriente ctacte) {
-		Scanner teclado = new Scanner(System.in);
-		
-		String nombre, apellido, DNI = null, telefono, direccion, localidad; int dni;
-		
-		System.out.println("Ingrese el nombre: ");
-		nombre = teclado.nextLine();
-		
-		System.out.println("Ingrese el apellido: ");
-		apellido = teclado.nextLine();
-		
-		dni = MetodosGeneral.castearEntero ("Ingrese su DNI:", DNI);
-		
-		Sexo genero = Sexo.escogerGenero();
-		
-		System.out.println("Ingrese el telefono: ");
-		telefono = teclado.nextLine();
-		
-		System.out.println("Ingrese el direccion: ");
-		direccion = teclado.nextLine();
-		
-		LocalDate fechaNac = MetodosGeneral.crearFecha("Ingrese fecha de nacimiento:");
-		
-		Provincia prov = Provincia.escogerProvincia();
-		
-		System.out.println("Ingrese la localidad: ");
-		localidad = teclado.nextLine();
-		
-		boolean activo = true;
-		
-		teclado.close();
-		
-		Proveedor nuevoProveedor = new Proveedor (nombre, apellido, dni, activo, genero, telefono, direccion, fechaNac, prov, localidad, ctacte);
-		listaProveedores.add(nuevoProveedor);
-		Persona.listaPersonas.add(nuevoProveedor);
+		if(ctacte != null) {
+			Scanner teclado = new Scanner(System.in);
+			
+			String nombre, apellido, DNI = null, telefono, direccion, localidad; int dni;
+			
+			System.out.println("Ingrese el nombre: ");
+			nombre = teclado.nextLine();
+			
+			System.out.println("Ingrese el apellido: ");
+			apellido = teclado.nextLine();
+			
+			dni = MetodosGeneral.castearEntero ("Ingrese su DNI:", DNI);
+			
+			Sexo genero = Sexo.escogerGenero();
+			
+			System.out.println("Ingrese el telefono: ");
+			telefono = teclado.nextLine();
+			
+			System.out.println("Ingrese el direccion: ");
+			direccion = teclado.nextLine();
+			
+			LocalDate fechaNac = MetodosGeneral.crearFecha("Ingrese fecha de nacimiento:");
+			
+			Provincia prov = Provincia.escogerProvincia();
+			
+			System.out.println("Ingrese la localidad: ");
+			localidad = teclado.nextLine();
+			
+			boolean activo = true;
+			
+			Proveedor nuevoProveedor = new Proveedor (nombre, apellido, dni, activo, genero, telefono, direccion, fechaNac, prov, localidad, ctacte);
+			
+			if(Proveedor.listaProveedores == null && Persona.listaPersonas == null) {
+				listaProveedores = new ArrayList <Proveedor> ();
+				listaPersonas = new ArrayList <Persona> ();
+			}
+			if(Proveedor.listaProveedores == null) {
+				listaProveedores = new ArrayList <Proveedor> ();
+			}
+			if(Persona.listaPersonas == null) {
+				listaPersonas = new ArrayList <Persona> ();
+			}
+			
+			listaProveedores.add(nuevoProveedor);
+			Persona.listaPersonas.add(nuevoProveedor);
+		}else {
+			System.out.println("No se encontraron los datos.");
+		}
 	}
 	
 	public void datosProveedor(Proveedor proveedor) {
@@ -100,11 +114,11 @@ public class Proveedor extends Persona implements Serializable{
 			String numAux=null; int num=0;
 			do {
 				num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-			}while(num < 1 && num > 2);
+			}while(num < 1 || num > 2);
 			
 			switch(num) {
 			case 1:
-				
+				proveedor.getCtacte().modificarCtaCte(this.ctacte);
 				break;
 				
 			case 2:

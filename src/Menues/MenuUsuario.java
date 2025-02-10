@@ -10,34 +10,39 @@ public class MenuUsuario {
 	
 	//MENUS USUARIO
 	public static void menuDatosUsuario(ArrayList <Usuario> lista) {
-		System.out.println("Bienvenido al menú de datos de cleinte/s:");
-		System.out.println("1 - Datos de un cleinte.");
-		System.out.println("2 - Datos de todos los cleintes.");
-		System.out.println("3 - Salir.");
-		
-		Usuario elemento = null;
-		String numAux=null; int num=0;
-		do {
-			num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-		}while(num < 1 && num > 3);
-		
-		switch(num) {
-		case 1:
-			elemento = menuSelectUsuario(lista);
-			elemento.datosUsuario(elemento);
-			break;
-						
-		case 2:
-			Usuario.listarUsuario(Usuario.listaUsuarios);
-			break;
+		if(lista != null) {
+			System.out.println("Bienvenido al menú de datos de cleinte/s:");
+			System.out.println("1 - Datos de un cliente.");
+			System.out.println("2 - Datos de todos los cleintes.");
+			System.out.println("3 - Salir.");
 			
-		case 3:
-			System.out.println("Saliendo...");
-			break;
-						
-		default:
-			break;
+			Usuario elemento = null;
+			String numAux=null; int num=0;
+			do {
+				num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
+			}while(num < 1 || num > 3);
+			
+			switch(num) {
+			case 1:
+				elemento = menuSelectUsuario(lista);
+				elemento.datosUsuario(elemento);
+				break;
+							
+			case 2:
+				Usuario.listarUsuario(Usuario.listaUsuarios);
+				break;
+				
+			case 3:
+				System.out.println("Saliendo...");
+				break;
+							
+			default:
+				break;
+			}
+		}else {
+			System.out.println("No se han encontrado los datos.");
 		}
+		Menus.menusDatos();
 	}
 			
 	public static void menuIngresoUsuario(ArrayList <Usuario> lista) {
@@ -52,7 +57,7 @@ public class MenuUsuario {
 		String numAux=null; int num=0;
 		do {
 			num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-		}while(num < 1 && num > 5);
+		}while(num < 1 || num > 5);
 					
 		switch(num) {
 		case 1:
@@ -60,17 +65,30 @@ public class MenuUsuario {
 			break;
 						
 		case 2:
-			elemento = menuSelectUsuario(lista);
-			elemento.bajaUsuario(elemento);
+			if(lista != null) {
+				elemento = menuSelectUsuario(lista);
+				elemento.bajaUsuario(elemento);
+			}else {
+				System.out.println("No se han encontrado los datos.");
+			}
 			break;
 						
 		case 3:
-			elemento = Usuario.buscarUsuario();
+			if(lista != null) {
+				elemento = Usuario.buscarUsuario();
+				MenuUsuario.menuUsuario(elemento, lista);
+			}else {
+				System.out.println("No se han encontrado los datos.");
+			}
 			break;
 						
 		case 4:
-			elemento = menuSelectUsuario(lista);
-			elemento.modificarUsuario(elemento);
+			if(lista != null) {
+				elemento = menuSelectUsuario(lista);
+				elemento.modificarUsuario(elemento);
+			}else {
+				System.out.println("No se han encontrado los datos.");
+			}
 			break;
 			
 		case 5:
@@ -80,40 +98,46 @@ public class MenuUsuario {
 		default:
 			break;
 		}
+		Menus.menusIngresar();
 	}
 	
-	public static void menuUsuario(Usuario usuario) {
-		System.out.println("Bienvenido al menú general de cliente/s:");
-		System.out.println("1 - Ver datos.");
-		System.out.println("2 - Modificar algún dato.");
-		System.out.println("3 - Dar de baja");
-		System.out.println("4 - Salir.");
-	
-		String numAux=null; int num=0;
-		do {
-			num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-		}while(num < 1 && num > 4);
-					
-		switch(num) {
-		case 1:
-			usuario.datosUsuario(usuario);
-			break;
-			
-		case 2:
-			usuario.modificarUsuario(usuario);
-			break;
-			
-		case 3:
-			usuario.bajaUsuario(usuario);
-			break;
-			
-		case 4:
-			System.out.println("Saliendo...");
-			break;
-			
-		default:
-			break;
+	public static void menuUsuario(Usuario usuario, ArrayList <Usuario> lista) {
+		if(usuario != null && lista != null) {
+			System.out.println("Bienvenido al menú general de cliente/s:");
+			System.out.println("1 - Ver datos.");
+			System.out.println("2 - Modificar algún dato.");
+			System.out.println("3 - Dar de baja");
+			System.out.println("4 - Salir.");
+		
+			String numAux=null; int num=0;
+			do {
+				num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
+			}while(num < 1 || num > 4);
+						
+			switch(num) {
+			case 1:
+				usuario.datosUsuario(usuario);
+				break;
+				
+			case 2:
+				usuario.modificarUsuario(usuario);
+				break;
+				
+			case 3:
+				usuario.bajaUsuario(usuario);
+				break;
+				
+			case 4:
+				System.out.println("Saliendo...");
+				break;
+				
+			default:
+				break;
+			}
+		}else {
+			System.out.println("No se han encontrado los datos.");
 		}
+		MenuUsuario.menuIngresoUsuario(lista);
 	}
 	
 	public static Usuario menuSelectUsuario(ArrayList <Usuario> lista) {
@@ -127,7 +151,7 @@ public class MenuUsuario {
 			String numAux=null; int num=0;
 			do {
 				num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-			}while(num < 1 && num > limit+1);
+			}while(num < 1 || num > limit+1);
 			
 			return lista.get(num-1);
 		}else {

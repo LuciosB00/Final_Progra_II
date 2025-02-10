@@ -13,7 +13,7 @@ import Clases.Usuario;
 public class ArchivoUsuario {
 	
 	// CREAR ARCHIVO
-	public static void archivoUsuario() {
+	public static void crearArchivoUsuario() {
 		String ruta = "Carpeta General" + File.separator + "usuario.dat";
 		File archivo = new File(ruta);
 		if (archivo.exists()==false){
@@ -29,11 +29,26 @@ public class ArchivoUsuario {
 		}
 	}
 	
+	// ELIMINAR ARCHIVO
+	public static void eliminarArchivoUsuario() {
+		String ruta = "Carpeta General" + File.separator + "usuario.dat";
+		File miArchivo = new File (ruta);
+		if (miArchivo.exists()){
+			if (miArchivo.delete()) {
+				System.out.println("Se ha eliminado correctamente el archivo.");
+			} else {
+				System.out.println("No se ha podido eliminar el archivo.");
+			}
+		} else {
+			System.out.println("No se elimino nada porque no existe.");
+		}
+	}
+	
 	// SERIALIZAR
 	public static void guardarUsuarios() {
-		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("usuario.dat"))) {
+		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("Carpeta General" + File.separator + "usuario.dat"))) {
 		oos.writeObject(Usuario.listaUsuarios);
-		System.out.println("Archivo guardado correctamente.");
+		System.out.println("Archivo usuario guardado correctamente.");
 		} catch (IOException error) {
 			System.out.println("Error al guardar: " + error.getMessage());
 		}
@@ -41,9 +56,9 @@ public class ArchivoUsuario {
 
 	// DESERIALIZAR
 	public static void cargarUsuarios() {
-		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("usuario.dat"))) {
+		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("Carpeta General" + File.separator + "usuario.dat"))) {
 			Usuario.listaUsuarios = (ArrayList <Usuario>) ois.readObject();
-			System.out.println("Archivo cargado correctamente.");
+			System.out.println("Archivo usuario cargado correctamente.");
 		} catch (IOException error) {
 			System.out.println("Error al cargar: " + error.getMessage());
 		} catch (ClassNotFoundException error) {

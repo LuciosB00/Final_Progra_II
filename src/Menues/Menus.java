@@ -10,11 +10,18 @@ import Clases.Proveedor;
 import Clases.Usuario;
 import Clases.Venta;
 import Final_Programacion_II.MetodosGeneral;
+import Archivos.Archivo;
 
 public class Menus {
+	private static boolean eject = false;
 
 	//MENU PRINCIPAL
 	public static void menuPrincipal() {
+		if(!eject) {
+			Archivo.cargarDatos();
+			eject = true;
+		}
+		
 		System.out.println("Bienvenido al menú principal:");
 		System.out.println("1 - Menú ver datos.");
 		System.out.println("2 - Menú ingresar datos.");
@@ -40,7 +47,10 @@ public class Menus {
 			break;
 				
 		case 4:
+			Archivo.guardarDatos();
+			
 			System.out.println("Saliendo...");
+			System.exit(0);
 			break;
 				
 		default:
@@ -54,7 +64,7 @@ public class Menus {
 		System.out.println("1 - Menú de personas.");
 		System.out.println("2 - Menú de empleados.");
 		System.out.println("3 - Menú de usuarios.");
-		System.out.println("4 - Menú de productos,.");
+		System.out.println("4 - Menú de productos.");
 		System.out.println("5 - Menú de ventas.");
 		System.out.println("6 - Menú de movimientos.");
 		System.out.println("7 - Menú de cuentas corrientes.");
@@ -111,6 +121,7 @@ public class Menus {
 		default:
 			break;
 		}
+		Menus.menuPrincipal();
 	}
 		
 	public static void menusIngresar() {
@@ -175,6 +186,7 @@ public class Menus {
 		default:
 			break;
 		}
+		Menus.menuPrincipal();
 	}
 		
 	public static void menusArchivos() {
@@ -194,7 +206,7 @@ public class Menus {
 		String numAux=null; int num=0;
 		do {
 			num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-		}while(num < 1 || num > 10);
+		}while(num < 1 || num > 11);
 			
 		switch(num) {
 		case 1:
@@ -202,39 +214,39 @@ public class Menus {
 			break;
 				
 		case 2:
-				
+			MenuArchivo.menuArchivoPersona();
 			break;
 				
 		case 3:
-				
+			MenuArchivo.menuArchivoEmpleado();
 			break;
 				
 		case 4:
-				
+			MenuArchivo.menuArchivoUsuario();
 			break;
 				
 		case 5:
-				
+			MenuArchivo.menuArchivoProducto();
 			break;
 				
 		case 6:
-				
+			MenuArchivo.menuArchivoVenta();
 			break;
 				
 		case 7:
-				
+			MenuArchivo.menuArchivoMovimiento();
 			break;
 				
 		case 8:
-				
+			MenuArchivo.menuArchivoCtaCte();
 			break;
 				
 		case 9:
-				
+			MenuArchivo.menuArchivoCliente();
 			break;
 				
 		case 10:
-			
+			MenuArchivo.menuArchivoProveedor();
 			break;
 			
 		case 11:
@@ -244,5 +256,6 @@ public class Menus {
 		default:
 			break;
 		}
+		Menus.menuPrincipal();
 	}
 }

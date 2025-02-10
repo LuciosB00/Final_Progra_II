@@ -8,7 +8,7 @@ import Final_Programacion_II.MetodosGeneral;
 
 public class CuentaCorriente implements Serializable{
 	private static final long serialVersionUID = 1L;
-	public static ArrayList <CuentaCorriente> listaCtaCtes = new ArrayList <CuentaCorriente> ();
+	public static ArrayList <CuentaCorriente> listaCtaCtes = null;
 	
 	// Atributos
 	private String detalle;
@@ -54,9 +54,12 @@ public class CuentaCorriente implements Serializable{
 		codigo = MetodosGeneral.castearEntero("Ingrese el codigo de la cuenta: ", codigoAux);
 		
 		CuentaCorriente nuevaCtaCte = new CuentaCorriente(movimientos, detalle, codigo);
-		listaCtaCtes.add(nuevaCtaCte);
 		
-		teclado.close();
+		if(CuentaCorriente.listaCtaCtes == null) {
+			listaCtaCtes = new ArrayList <CuentaCorriente> ();
+		}
+		
+		listaCtaCtes.add(nuevaCtaCte);
 	}
 	
 	public void agregarMovimiento (ArrayList <Movimiento> movimientos, Movimiento movimiento) {
@@ -107,7 +110,7 @@ public class CuentaCorriente implements Serializable{
 			String numAux=null; int num=0;
 			do {
 				num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-			}while(num < 1 && num > 3);
+			}while(num < 1 || num > 3);
 			
 			switch(num) {
 			case 1:
@@ -129,7 +132,6 @@ public class CuentaCorriente implements Serializable{
 			default:
 				break;
 			}
-			teclado.close();
 		}else {
 			System.out.println("No se han encontrado los datos.");
 		}

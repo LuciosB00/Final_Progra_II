@@ -10,34 +10,39 @@ public class MenuProveedor {
 	
 	//MENUS PROVEEDOR
 	public static void menuDatosProveedor(ArrayList <Proveedor> lista) {
-		System.out.println("Bienvenido al menú de datos de cleinte/s:");
-		System.out.println("1 - Datos de un cleinte.");
-		System.out.println("2 - Datos de todos los cleintes.");
-		System.out.println("3 - Salir.");
-		
-		Proveedor elemento = null;
-		String numAux=null; int num=0;
-		do {
-			num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-		}while(num < 1 && num > 3);
-		
-		switch(num) {
-		case 1:
-			elemento = menuSelectProveedor(lista);
-			elemento.datosProveedor(elemento);
-			break;
-						
-		case 2:
-			Proveedor.listarProveedor();
-			break;
+		if(lista != null) {
+			System.out.println("Bienvenido al menú de datos de cleinte/s:");
+			System.out.println("1 - Datos de un cleinte.");
+			System.out.println("2 - Datos de todos los cleintes.");
+			System.out.println("3 - Salir.");
 			
-		case 3:
-			System.out.println("Saliendo...");
-			break;
-						
-		default:
-			break;
+			Proveedor elemento = null;
+			String numAux=null; int num=0;
+			do {
+				num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
+			}while(num < 1 || num > 3);
+			
+			switch(num) {
+			case 1:
+				elemento = menuSelectProveedor(lista);
+				elemento.datosProveedor(elemento);
+				break;
+							
+			case 2:
+				Proveedor.listarProveedor();
+				break;
+				
+			case 3:
+				System.out.println("Saliendo...");
+				break;
+							
+			default:
+				break;
+			}
+		}else {
+			System.out.println("No se han encontrado los datos.");
 		}
+		Menus.menusDatos();
 	}
 			
 	public static void menuIngresoProveedor(ArrayList <Proveedor> lista) {
@@ -60,17 +65,30 @@ public class MenuProveedor {
 			break;
 						
 		case 2:
-			elemento = menuSelectProveedor(lista);
-			elemento.bajaPersona(elemento);
+			if(lista != null) {
+				elemento = menuSelectProveedor(lista);
+				elemento.bajaPersona(elemento);
+			}else {
+				System.out.println("No se han encontrado los datos.");
+			}
 			break;
 						
 		case 3:
-			elemento = Proveedor.buscarProveedor();
+			if(lista != null) {
+				elemento = Proveedor.buscarProveedor();
+				MenuProveedor.menuProveedor(elemento, lista);
+			}else {
+				System.out.println("No se han encontrado los datos.");
+			}
 			break;
 						
 		case 4:
-			elemento = menuSelectProveedor(lista);
-			elemento.modificarProveedor(elemento);
+			if(lista != null) {
+				elemento = menuSelectProveedor(lista);
+				elemento.modificarProveedor(elemento);
+			}else {
+				System.out.println("No se han encontrado los datos.");
+			}
 			break;
 			
 		case 5:
@@ -80,40 +98,46 @@ public class MenuProveedor {
 		default:
 			break;
 		}
+		Menus.menusIngresar();
 	}
 	
-	public static void menuProveedor(Proveedor proveedor) {
-		System.out.println("Bienvenido al menú general de cliente/s:");
-		System.out.println("1 - Ver datos.");
-		System.out.println("2 - Modificar algún dato.");
-		System.out.println("3 - Dar de baja");
-		System.out.println("4 - Salir.");
-	
-		String numAux=null; int num=0;
-		do {
-			num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-		}while(num < 1 && num > 4);
-					
-		switch(num) {
-		case 1:
-			proveedor.datosProveedor(proveedor);
-			break;
-			
-		case 2:
-			proveedor.modificarProveedor(proveedor);
-			break;
-			
-		case 3:
-			proveedor.bajaPersona(proveedor);
-			break;
-			
-		case 4:
-			System.out.println("Saliendo...");
-			break;
-			
-		default:
-			break;
+	public static void menuProveedor(Proveedor proveedor, ArrayList <Proveedor> lista) {
+		if(proveedor != null && lista != null) {
+			System.out.println("Bienvenido al menú general de cliente/s:");
+			System.out.println("1 - Ver datos.");
+			System.out.println("2 - Modificar algún dato.");
+			System.out.println("3 - Dar de baja");
+			System.out.println("4 - Salir.");
+		
+			String numAux=null; int num=0;
+			do {
+				num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
+			}while(num < 1 || num > 4);
+						
+			switch(num) {
+			case 1:
+				proveedor.datosProveedor(proveedor);
+				break;
+				
+			case 2:
+				proveedor.modificarProveedor(proveedor);
+				break;
+				
+			case 3:
+				proveedor.bajaPersona(proveedor);
+				break;
+				
+			case 4:
+				System.out.println("Saliendo...");
+				break;
+				
+			default:
+				break;
+			}
+		}else {
+			System.out.println("No se han encontrado los datos.");
 		}
+		MenuProveedor.menuIngresoProveedor(lista);
 	}
 	
 	public static Proveedor menuSelectProveedor(ArrayList <Proveedor> lista) {
@@ -127,7 +151,7 @@ public class MenuProveedor {
 			String numAux=null; int num=0;
 			do {
 				num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-			}while(num < 1 && num > limit+1);
+			}while(num < 1 || num > limit+1);
 			
 			return lista.get(num-1);
 		}else {

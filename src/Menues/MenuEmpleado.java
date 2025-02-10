@@ -9,37 +9,42 @@ public class MenuEmpleado {
 	
 	//MENUS EMPLEADO
 	public static void menuDatosEmpleado(ArrayList <Empleado> lista) {
-		System.out.println("Bienvenido al menú de datos de empleado/s:");
-		System.out.println("1 - Datos de un empleado.");
-		System.out.println("2 - Datos de todos los empleados.");
-		System.out.println("3 - Salir.");
-		
-		String numAux=null; int num=0;
-		do {
-			num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-		}while(num < 1 || num > 3);
-		
-		switch(num) {
-		case 1:
-			Empleado elemento = menuSelectEmpleado(lista);
-			elemento.datosEmpleado(elemento);
-			break;
-						
-		case 2:
-			Empleado.listarEmpleados();
-			break;
+		if(lista != null) {
+			System.out.println("Bienvenido al menú de datos de empleado/s:");
+			System.out.println("1 - Datos de un empleado.");
+			System.out.println("2 - Datos de todos los empleados.");
+			System.out.println("3 - Salir.");
 			
-		case 3:
-			System.out.println("Saliendo...");
-			break;
-						
-		default:
-			break;
+			String numAux=null; int num=0;
+			do {
+				num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
+			}while(num < 1 || num > 3);
+			
+			switch(num) {
+			case 1:
+				Empleado elemento = menuSelectEmpleado(lista);
+				elemento.datosEmpleado(elemento);
+				break;
+							
+			case 2:
+				Empleado.listarEmpleados();
+				break;
+				
+			case 3:
+				System.out.println("Saliendo...");
+				break;
+							
+			default:
+				break;
+			}
+		}else {
+			System.out.println("No se han encontrado los datos.");
 		}
+		Menus.menusDatos();
 	}
 			
 	public static void menuIngresoEmpleado(ArrayList <Empleado> lista) {
-		System.out.println("Bienvenido al menú de ingreso de datos de Empleado/s:");
+		System.out.println("Bienvenido al menú de ingreso de datos de empleado/s:");
 		System.out.println("1 - Ingresar un empleado.");
 		System.out.println("2 - Dar de baja a un empleado.");
 		System.out.println("3 - Buscar un empleado por su legajo.");
@@ -58,17 +63,30 @@ public class MenuEmpleado {
 			break;
 						
 		case 2:
-			elemento = menuSelectEmpleado(lista);
-			elemento.bajaPersona(elemento);
+			if(lista != null) {
+				elemento = menuSelectEmpleado(lista);
+				elemento.bajaPersona(elemento);
+			}else {
+				System.out.println("No se han encontrado los datos.");
+			}
 			break;
 						
 		case 3:
-			elemento = Empleado.buscarEmpleadoLegajo();
+			if(lista != null) {
+				elemento = Empleado.buscarEmpleadoLegajo();
+				MenuEmpleado.menuEmpleado(elemento, lista);
+			}else {
+				System.out.println("No se han encontrado los datos.");
+			}
 			break;
 						
 		case 4:
-			elemento = menuSelectEmpleado(lista);
-			elemento.modificarEmpleado(elemento);
+			if(lista != null) {
+				elemento = menuSelectEmpleado(lista);
+				elemento.modificarEmpleado(elemento);
+			}else {
+				System.out.println("No se han encontrado los datos.");
+			}
 			break;
 			
 		case 5:
@@ -78,39 +96,45 @@ public class MenuEmpleado {
 		default:
 			break;
 		}
+		Menus.menusIngresar();
 	}
 	
-	public static void menuEmpleado(Empleado empleado) {
-		System.out.println("Bienvenido al menú general de empleado/s:");
-		System.out.println("1 - Ver datos.");
-		System.out.println("2 - Modificar algún dato.");
-		System.out.println("3 - Dar de baja");
-		System.out.println("4 - Salir.");
-	
-		String numAux=null; int num=0;
-		do {
-			num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-		}while(num < 1 || num > 4);
-					
-		switch(num) {
-		case 1:
-			empleado.datosEmpleado(empleado);
-			break;
-			
-		case 2:
-			empleado.modificarEmpleado(empleado);
-			break;
-			
-		case 3:
-			empleado.bajaPersona(empleado);
-			break;
-			
-		case 4:
-			System.out.println("Saliendo...");
-			break;
-			
-		default:
-			break;
+	public static void menuEmpleado(Empleado empleado, ArrayList <Empleado> lista) {
+		if(empleado != null && lista != null) {
+			System.out.println("Bienvenido al menú general de empleado/s:");
+			System.out.println("1 - Ver datos.");
+			System.out.println("2 - Modificar algún dato.");
+			System.out.println("3 - Dar de baja");
+			System.out.println("4 - Salir.");
+		
+			String numAux=null; int num=0;
+			do {
+				num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
+			}while(num < 1 || num > 4);
+						
+			switch(num) {
+			case 1:
+				empleado.datosEmpleado(empleado);
+				break;
+				
+			case 2:
+				empleado.modificarEmpleado(empleado);
+				break;
+				
+			case 3:
+				empleado.bajaPersona(empleado);
+				break;
+				
+			case 4:
+				System.out.println("Saliendo...");
+				break;
+				
+			default:
+				break;
+			}
+			MenuEmpleado.menuIngresoEmpleado(lista);
+		}else {
+			System.out.println("No se encontraron los datos.");
 		}
 	}
 	

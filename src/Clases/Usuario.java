@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class Usuario implements Serializable{
 	private static final long serialVersionUID = 1L;
-	public static ArrayList <Usuario> listaUsuarios = new ArrayList <Usuario> ();
+	public static ArrayList <Usuario> listaUsuarios = null;
 
 	// Atributos
 	private String usuario;
@@ -68,9 +68,12 @@ public class Usuario implements Serializable{
 			boolean activo = true;
 			
 			Usuario nuevoUsuario = new Usuario (usuario, clave, propietario, activo);
-			listaUsuarios.add(nuevoUsuario);
 			
-			teclado.close();
+			if(Usuario.listaUsuarios == null) {
+				listaUsuarios = new ArrayList <Usuario> ();
+			}
+			
+			listaUsuarios.add(nuevoUsuario);
 		}else {
 			System.out.println("No se encontraron los datos.");
 		}
@@ -89,12 +92,13 @@ public class Usuario implements Serializable{
 			Scanner teclado = new Scanner(System.in);
 			
 			System.out.println("1 - Modificar nombre de usuario.");
-			System.out.println("2 - Salir.");
+			System.out.println("Modificar su clave de usuario.");
+			System.out.println("3 - Salir.");
 			
 			String numAux=null; int num=0;
 			do {
 				num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-			}while(num < 1 && num > 2);
+			}while(num < 1 || num > 3);
 			
 			switch(num) {
 			case 1:
@@ -102,8 +106,20 @@ public class Usuario implements Serializable{
 				String usuarioAux = teclado.nextLine();
 				usuario.setUsuario(usuarioAux);
 				break;
+				
+			case 2:
+				System.out.println("Ingrese su clave:");
+				String claveAux = teclado.nextLine();
+				usuario.setUsuario(claveAux);
+				break;
+				
+			case 3:
+				System.out.println("Saliendo...");
+				break;
+				
+			default:
+				break;
 			}
-			teclado.close();
 		}else {
 			System.out.println("No se encontraron los datos.");
 		}
@@ -118,12 +134,10 @@ public class Usuario implements Serializable{
 		for(Usuario elemento : listaUsuarios) {
 			if(usser.equals(elemento.getUsuario())) {
 				System.out.println("El usuario SI se ha encontrado.");
-				teclado.close();
 				return elemento;
 			}
 		}
 		
-		teclado.close();
 		System.out.println("El usuario NO se ha encontrado.");
 		return null;
 	}

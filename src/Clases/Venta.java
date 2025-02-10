@@ -8,7 +8,7 @@ import Final_Programacion_II.MetodosGeneral;
 
 public class Venta implements Serializable{
 	private static final long serialVersionUID = 1L;
-	public static ArrayList <Venta> listaVentas = new ArrayList <Venta> ();
+	public static ArrayList <Venta> listaVentas = null;
 	
 	// Atributos
 	private int codigo;
@@ -90,32 +90,42 @@ public class Venta implements Serializable{
 	
 	// Metodos
 	public static void altaVenta (Cliente cliente, Vector <Producto> productos) {
-		int codigo, cantidad=0; double total=0.0; FormaPago pago;
-		String codigoAux=null,detalle=null;
-		
-		codigo = MetodosGeneral.castearEntero("Ingrese el codigo de la venta:", codigoAux);
-		
-		Scanner teclado = new Scanner(System.in);
-		System.out.println("Ingrese el detalle de la venta: ");
-		detalle = teclado.nextLine();
-		
-		for (Producto elemento : productos) {
-			total += elemento.getPrecio();
-			cantidad++;
+		if(cliente != null && productos != null) {
+			int codigo, cantidad=0; double total=0.0; FormaPago pago;
+			String codigoAux=null,detalle=null;
+			
+			codigo = MetodosGeneral.castearEntero("Ingrese el codigo de la venta:", codigoAux);
+			
+			Scanner teclado = new Scanner(System.in);
+			System.out.println("Ingrese el detalle de la venta: ");
+			detalle = teclado.nextLine();
+			
+			for (Producto elemento : productos) {
+				total += elemento.getPrecio();
+				cantidad++;
+			}
+					
+			pago = FormaPago.escogerFomaPago();
+			
+			boolean activo = true;
+			
+			Venta nuevaVenta = new Venta (codigo, detalle, total, activo, cantidad, pago, cliente, productos);
+			
+			if(Venta.listaVentas == null) {
+				listaVentas = new ArrayList <Venta> ();
+			}
+			
+			listaVentas.add(nuevaVenta);
+		}else {
+			System.out.println("No se encontraron los datos.");
 		}
-				
-		pago = FormaPago.escogerFomaPago();
-		boolean activo = true;
-		
-		Venta nuevaVenta = new Venta (codigo, detalle, total, activo, cantidad, pago, cliente, productos);
-		listaVentas.add(nuevaVenta);
-		
-		teclado.close();
 	}
 	
 	public void bajaVenta (Venta venta) {
 		if (venta != null) {
 			venta.setActivo(false);
+		}else {
+			System.out.println("No se encontraron los datos.");
 		}
 	}
 	
@@ -133,46 +143,45 @@ public class Venta implements Serializable{
 			String numAux=null; int num=0;
 			do {
 				num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-			}while(num < 1 && num > 9);
+			}while(num < 1 || num > 9);
 			switch(num) {
-					case 1:
-						String codigoAux = null;
-						int codigo = MetodosGeneral.castearEntero("Ingrese el codigo de la venta:", codigoAux);
-						venta.setCodigo(codigo);
-						break;
+			case 1:
+				String codigoAux = null;
+				int codigo = MetodosGeneral.castearEntero("Ingrese el codigo de la venta:", codigoAux);
+				venta.setCodigo(codigo);
+				break;
+				
+			case 2:
+				String detalle;
+				System.out.println("Ingrese el detalle de la venta: ");
+				detalle = teclado.nextLine();
+				venta.setDetalle(detalle);
+				break;
 						
-					case 2:
-						String detalle;
-						System.out.println("Ingrese el detalle de la venta: ");
-						detalle = teclado.nextLine();
-						venta.setDetalle(detalle);
-						break;
+			case 3:
+				String cantidadAux = null;
+				int cantidad = MetodosGeneral.castearEntero("Ingrese la cantidad:", cantidadAux);
+				venta.setCantidad(cantidad);
+				break;
 						
-					case 3:
-						String cantidadAux = null;
-						int cantidad = MetodosGeneral.castearEntero("Ingrese la cantidad:", cantidadAux);
-						venta.setCantidad(cantidad);
-						break;
+			case 4:
+				String totalAux = null;
+				double total = MetodosGeneral.castearDecimal("Ingrese el total:", totalAux);
+				venta.setTotal(total);
+				break;
 						
-					case 4:
-						String totalAux = null;
-						double total = MetodosGeneral.castearDecimal("Ingrese el total:", totalAux);
-						venta.setTotal(total);
-						break;
+			case 5:
+				FormaPago pago = FormaPago.escogerFomaPago();
+				venta.setPago(pago);
+				break;
+				
+			case 6:
+				System.out.println("Saliendo...");
+				break;
 						
-					case 5:
-						FormaPago pago = FormaPago.escogerFomaPago();
-						venta.setPago(pago);
-						break;
-						
-					case 6:
-						System.out.println("Saliendo...");
-						break;
-						
-					default:
-						break;
+			default:
+				break;
 			}
-			teclado.close();
 		} else {
 			System.out.println("No se encontraron los datos.");
 		}

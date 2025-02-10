@@ -13,7 +13,7 @@ import Clases.Venta;
 public class ArchivoVenta {
 	
 	// CREAR ARCHIVO
-	public static void archivoVenta() {
+	public static void crearArchivoVenta() {
 		String ruta = "Carpeta General" + File.separator + "venta.dat";
 		File archivo = new File(ruta);
 		if (archivo.exists()==false){
@@ -29,21 +29,36 @@ public class ArchivoVenta {
 		}
 	}
 	
+	// ELIMINAR ARCHIVO
+	public static void eliminarArchivoVenta() {
+		String ruta = "Carpeta General" + File.separator + "venta.dat";
+		File miArchivo = new File (ruta);
+		if (miArchivo.exists()){
+			if (miArchivo.delete()) {
+				System.out.println("Se ha eliminado correctamente el archivo.");
+			} else {
+				System.out.println("No se ha podido eliminar el archivo.");
+			}
+		} else {
+			System.out.println("No se elimino nada porque no existe.");
+		}
+	}
+	
 	// SERIALIZAR
 	public static void guardarVentas() {
-		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("ventas.dat"))) {
+		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("Carpeta General" + File.separator + "venta.dat"))) {
 			oos.writeObject(Venta.listaVentas);
-			System.out.println("Archivo guardado correctamente.");
+			System.out.println("Archivo venta guardado correctamente.");
 		} catch (IOException error) {
 			System.out.println("Error al guardar: " + error.getMessage());
 		}
 	}
 
 	// DESERIALIZAR
-	public static void cargarPersonas() {
-		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("venta.dat"))) {
+	public static void cargarVentas() {
+		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("Carpeta General" + File.separator + "venta.dat"))) {
 			Venta.listaVentas = (ArrayList <Venta>) ois.readObject();
-			System.out.println("Archivo cargado correctamente.");
+			System.out.println("Archivo venta cargado correctamente.");
 		} catch (IOException error) {
 			System.out.println("Error al cargar: " + error.getMessage());
 		} catch (ClassNotFoundException error) {

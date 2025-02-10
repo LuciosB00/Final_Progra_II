@@ -9,7 +9,7 @@ import java.util.Vector;
 
 public class Producto implements Serializable{
 	private static final long serialVersionUID =  1L;
-	public static ArrayList <Producto> listaProductos = new ArrayList <Producto> ();
+	public static ArrayList <Producto> listaProductos = null;
 	
 	//Atributos
 	private int codigo;
@@ -139,9 +139,12 @@ public class Producto implements Serializable{
 		boolean activo = true;
 		
 		Producto nuevoProducto = new Producto (detalle, codigo, activo, talle, precio, marca, stock, material, categoria);
-		listaProductos.add(nuevoProducto);
 		
-		teclado.close();
+		if(Producto.listaProductos == null) {
+			listaProductos = new ArrayList <Producto> ();
+		}
+		
+		listaProductos.add(nuevoProducto);
 	}
 	
 	public void bajaProducto (Producto producto) {
@@ -169,7 +172,7 @@ public class Producto implements Serializable{
 			String numAux=null; int num=0;
 			do {
 				num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-			}while(num < 1 && num > 9);
+			}while(num < 1 || num > 9);
 			
 			switch(num) {
 			case 1:
@@ -226,7 +229,6 @@ public class Producto implements Serializable{
 			default:
 				break;
 			}
-			teclado.close();
 		} else {
 			System.out.println("No se encontraron los datos.");
 		}

@@ -2,7 +2,6 @@ package Menues;
 
 import java.util.ArrayList;
 import java.util.Vector;
-
 import Clases.Producto;
 import Final_Programacion_II.MetodosGeneral;
 
@@ -10,34 +9,39 @@ public class MenuProducto {
 	
 	//MENUS PRODUCTOS
 	public static void menuDatosProducto(ArrayList <Producto> lista) {
-		System.out.println("Bienvenido al menú de datos de producto/s:");
-		System.out.println("1 - Datos de un producto.");
-		System.out.println("2 - Datos de todos los producto.");
-		System.out.println("3 - Salir.");
-		
-		Producto elemento = null;
-		String numAux=null; int num=0;
-		do {
-			num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-		}while(num < 1 && num > 3);
-		
-		switch(num) {
-		case 1:
-			elemento = menuSelectProducto(lista);
-			elemento.datosProducto(elemento);
-			break;
-						
-		case 2:
-			Producto.listarProductos();
-			break;
+		if(lista != null) {
+			System.out.println("Bienvenido al menú de datos de producto/s:");
+			System.out.println("1 - Datos de un producto.");
+			System.out.println("2 - Datos de todos los producto.");
+			System.out.println("3 - Salir.");
 			
-		case 3:
-			System.out.println("Saliendo...");
-			break;
-						
-		default:
-			break;
+			Producto elemento = null;
+			String numAux=null; int num=0;
+			do {
+				num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
+			}while(num < 1 || num > 3);
+			
+			switch(num) {
+			case 1:
+				elemento = menuSelectProducto(lista);
+				elemento.datosProducto(elemento);
+				break;
+							
+			case 2:
+				Producto.listarProductos();
+				break;
+				
+			case 3:
+				System.out.println("Saliendo...");
+				break;
+							
+			default:
+				break;
+			}
+		}else {
+			System.out.println("No se han encontrado los datos.");
 		}
+		Menus.menusDatos();
 	}
 			
 	public static void menuIngresoProducto(ArrayList <Producto> lista) {
@@ -52,7 +56,7 @@ public class MenuProducto {
 		String numAux=null; int num=0;
 		do {
 			num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-		}while(num < 1 && num > 5);
+		}while(num < 1 || num > 5);
 					
 		switch(num) {
 		case 1:
@@ -60,17 +64,30 @@ public class MenuProducto {
 			break;
 						
 		case 2:
-			elemento = menuSelectProducto(lista);
-			elemento.bajaProducto(elemento);
+			if(lista != null) {
+				elemento = menuSelectProducto(lista);
+				elemento.bajaProducto(elemento);
+			}else {
+				System.out.println("No se han encontrado los datos.");
+			}
 			break;
 						
 		case 3:
-			elemento = Producto.buscarProductoCodigo();
+			if(lista != null) {
+				elemento = Producto.buscarProductoCodigo();
+				MenuProducto.menuProducto(elemento, lista);
+			}else {
+				System.out.println("No se han encontrado los datos.");
+			}
 			break;
 						
 		case 4:
-			elemento = menuSelectProducto(lista);
-			elemento.modificarProducto(elemento);
+			if(lista != null) {
+				elemento = menuSelectProducto(lista);
+				elemento.modificarProducto(elemento);
+			}else {
+				System.out.println("No se han encontrado los datos.");
+			}
 			break;
 			
 		case 5:
@@ -80,40 +97,46 @@ public class MenuProducto {
 		default:
 			break;
 		}
+		Menus.menusIngresar();
 	}
 	
-	public static void menuEmpleado(Producto producto) {
-		System.out.println("Bienvenido al menú general de producto/s:");
-		System.out.println("1 - Ver datos.");
-		System.out.println("2 - Modificar algún dato.");
-		System.out.println("3 - Dar de baja");
-		System.out.println("4 - Salir.");
-	
-		String numAux=null; int num=0;
-		do {
-			num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-		}while(num < 1 && num > 4);
-					
-		switch(num) {
-		case 1:
-			producto.datosProducto(producto);
-			break;
-			
-		case 2:
-			producto.modificarProducto(producto);
-			break;
-			
-		case 3:
-			producto.bajaProducto(producto);
-			break;
-			
-		case 4:
-			System.out.println("Saliendo...");
-			break;
-			
-		default:
-			break;
+	public static void menuProducto(Producto producto, ArrayList <Producto> lista) {
+		if(producto != null && lista != null) {
+			System.out.println("Bienvenido al menú general de producto/s:");
+			System.out.println("1 - Ver datos.");
+			System.out.println("2 - Modificar algún dato.");
+			System.out.println("3 - Dar de baja");
+			System.out.println("4 - Salir.");
+		
+			String numAux=null; int num=0;
+			do {
+				num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
+			}while(num < 1 && num > 4);
+						
+			switch(num) {
+			case 1:
+				producto.datosProducto(producto);
+				break;
+				
+			case 2:
+				producto.modificarProducto(producto);
+				break;
+				
+			case 3:
+				producto.bajaProducto(producto);
+				break;
+				
+			case 4:
+				System.out.println("Saliendo...");
+				break;
+				
+			default:
+				break;
+			}
+		}else {
+			System.out.println("No se han encontrado los datos.");
 		}
+		MenuProducto.menuIngresoProducto(lista);
 	}
 	
 	public static Producto menuSelectProducto(ArrayList <Producto> lista) {
@@ -127,7 +150,7 @@ public class MenuProducto {
 			String numAux=null; int num=0;
 			do {
 				num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-			}while(num < 1 && num > limit+1);
+			}while(num < 1 || num > limit+1);
 			
 			return lista.get(num-1);
 		}else {

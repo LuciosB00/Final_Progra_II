@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class Movimiento implements Serializable{
 	private static final long serialVersionUID = 1L;
-	public static ArrayList <Movimiento> listaMovimientos = new ArrayList <Movimiento> ();
+	public static ArrayList <Movimiento> listaMovimientos = null;
 	
 	// Atributos
 	private int codigo;
@@ -92,9 +92,12 @@ public class Movimiento implements Serializable{
 		boolean activo = true;
 		
 		Movimiento nuevoMovimiento = new Movimiento (codigo, saldo, detalle, montoDebe, montoHaber, activo);
-		listaMovimientos.add(nuevoMovimiento);
 		
-		teclado.close();
+		if(Movimiento.listaMovimientos == null) {
+			listaMovimientos = new ArrayList <Movimiento> ();
+		}
+		
+		listaMovimientos.add(nuevoMovimiento);
 	}
 	
 	public void modificarMovimiento (Movimiento movimiento) {
@@ -111,7 +114,7 @@ public class Movimiento implements Serializable{
 			String numAux=null; int num=0;
 			do {
 				num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-			}while(num < 1 && num > 9);
+			}while(num < 1 || num > 9);
 			
 			switch(num) {
 			case 1:
@@ -130,18 +133,21 @@ public class Movimiento implements Serializable{
 				String saldoAux = null;
 				double saldo = MetodosGeneral.castearDecimal("Ingrese el saldo del movimiento:", saldoAux);
 				movimiento.setSaldo(saldo);
+				movimiento.setSaldo(movimiento.calcularSaldo(movimiento));
 				break;
 						
 			case 4:
 				String montoDebeAux = null;
 				double montoDebe = MetodosGeneral.castearDecimal("Ingrese el monto a deber:", montoDebeAux);
 				movimiento.setMontoDebe(montoDebe);
+				movimiento.setSaldo(movimiento.calcularSaldo(movimiento));
 				break;
 					
 			case 5:
 				String montoHaberAux = null;
 				double montoHaber = MetodosGeneral.castearDecimal("Ingrese el mono de haber:", montoHaberAux);
 				movimiento.setMontoHaber(montoHaber);
+				movimiento.setSaldo(movimiento.calcularSaldo(movimiento));
 				break;
 						
 			case 6:
@@ -151,7 +157,6 @@ public class Movimiento implements Serializable{
 			default:
 				break;
 			}
-			teclado.close();
 		}else {
 			System.out.println("No se encontraron los datos.");
 		}

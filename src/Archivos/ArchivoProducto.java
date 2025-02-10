@@ -13,7 +13,7 @@ import Clases.Producto;
 public class ArchivoProducto {
 	
 	// CREAR ARCHIVO
-	public static void archivoProducto() {
+	public static void crearArchivoProducto() {
 		String ruta = "Carpeta General" + File.separator + "producto.dat";
 		File archivo = new File(ruta);
 		if (archivo.exists()==false){
@@ -28,12 +28,27 @@ public class ArchivoProducto {
 			System.out.println("El archivo que intenta crear ya existe.");
 		}
 	}
+	
+	// ELIMINAR ARCHIVO
+	public static void eliminarArchivoProducto() {
+		String ruta = "Carpeta General" + File.separator + "producto.dat";
+		File miArchivo = new File (ruta);
+		if (miArchivo.exists()){
+			if (miArchivo.delete()) {
+				System.out.println("Se ha eliminado correctamente el archivo.");
+			} else {
+				System.out.println("No se ha podido eliminar el archivo.");
+			}
+		} else {
+			System.out.println("No se elimino nada porque no existe.");
+		}
+	}
 
 	// SERIALIZAR
 	public static void guardarProductos() {
-		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("producto.dat"))) {
+		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("Carpeta General" + File.separator + "producto.dat"))) {
 			oos.writeObject(Producto.listaProductos);
-			System.out.println("Personas guardadas correctamente.");
+			System.out.println("Archivo producto guardado correctamente.");
 		} catch (IOException error) {
 			System.out.println("Error al guardar: " + error.getMessage());
 		}
@@ -41,11 +56,11 @@ public class ArchivoProducto {
 
 	// DESERIALIZAR
 	public static void cargarProductos() {
-		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("producto.dat"))) {
+		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("Carpeta General" + File.separator + "producto.dat"))) {
 			Producto.listaProductos = (ArrayList <Producto>) ois.readObject();
-			System.out.println("Personas cargadas correctamente.");
+			System.out.println("Archivo producto cargado correctamente.");
 		} catch (IOException error) {
-			System.out.println("Error al cargar las personas: " + error.getMessage());
+			System.out.println("Error al cargar: " + error.getMessage());
 		} catch (ClassNotFoundException error) {
 			System.out.println("Clase no encontrada: " + error.getMessage());
 		}

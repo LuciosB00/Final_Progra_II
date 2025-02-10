@@ -8,7 +8,7 @@ import Final_Programacion_II.MetodosGeneral;
 
 public class Cliente extends Persona implements Serializable{
 	private static final long serialVersionUID = 1L;
-	public static ArrayList <Cliente> listaClientes = new ArrayList <Cliente> ();
+	public static ArrayList <Cliente> listaClientes = null;
 
 	// Atributos
 	private CuentaCorriente ctacte;
@@ -44,40 +44,53 @@ public class Cliente extends Persona implements Serializable{
 
 	// Metodos
 	public static void altaCliente (CuentaCorriente ctacte) {
-		Scanner teclado = new Scanner(System.in);
-		
-		String nombre, apellido, DNI = null, telefono, direccion, localidad; int dni;
-		
-		System.out.println("Ingrese el nombre: ");
-		nombre = teclado.nextLine();
-		
-		System.out.println("Ingrese el apellido: ");
-		apellido = teclado.nextLine();
-		
-		dni = MetodosGeneral.castearEntero ("Ingrese su DNI:", DNI);
-		
-		Sexo genero = Sexo.escogerGenero();
-		
-		System.out.println("Ingrese el telefono: ");
-		telefono = teclado.nextLine();
-		
-		System.out.println("Ingrese el direccion: ");
-		direccion = teclado.nextLine();
-		
-		LocalDate fechaNac = MetodosGeneral.crearFecha("Ingrese fecha de nacimiento:");
-		
-		Provincia prov = Provincia.escogerProvincia();
-		
-		System.out.println("Ingrese la localidad: ");
-		localidad = teclado.nextLine();
-		
-		boolean activo = true;
-		
-		Cliente nuevoCliente = new Cliente (nombre, apellido, dni, activo, genero, telefono, direccion, fechaNac, prov, localidad, ctacte);
-		listaClientes.add(nuevoCliente);
-		Persona.listaPersonas.add(nuevoCliente);
-		
-		teclado.close();
+		if(ctacte != null) {
+			Scanner teclado = new Scanner(System.in);
+			
+			String nombre, apellido, DNI = null, telefono, direccion, localidad; int dni;
+			
+			System.out.println("Ingrese el nombre: ");
+			nombre = teclado.nextLine();
+			
+			System.out.println("Ingrese el apellido: ");
+			apellido = teclado.nextLine();
+			
+			dni = MetodosGeneral.castearEntero ("Ingrese su DNI:", DNI);
+			
+			Sexo genero = Sexo.escogerGenero();
+			
+			System.out.println("Ingrese el telefono: ");
+			telefono = teclado.nextLine();
+			
+			System.out.println("Ingrese el direccion: ");
+			direccion = teclado.nextLine();
+			
+			LocalDate fechaNac = MetodosGeneral.crearFecha("Ingrese fecha de nacimiento:");
+			
+			Provincia prov = Provincia.escogerProvincia();
+			
+			System.out.println("Ingrese la localidad: ");
+			localidad = teclado.nextLine();
+			
+			boolean activo = true;
+			
+			Cliente nuevoCliente = new Cliente (nombre, apellido, dni, activo, genero, telefono, direccion, fechaNac, prov, localidad, ctacte);
+			
+			if(listaClientes == null && listaPersonas == null) {
+				Cliente.listaClientes = new ArrayList <Cliente> ();
+			}
+			if(listaPersonas == null){
+				Persona.listaPersonas = new ArrayList <Persona> ();
+			}
+			if(listaClientes == null){
+				Cliente.listaClientes = new ArrayList <Cliente> ();
+			}
+			
+			listaClientes.add(nuevoCliente);
+			Persona.listaPersonas.add(nuevoCliente);
+		}else {
+			System.out.println("No se han encontrado los datos.");
+		}
 	}
 	
 	public void modificarCliente(Cliente cliente) {
@@ -90,11 +103,11 @@ public class Cliente extends Persona implements Serializable{
 			String numAux=null; int num=0;
 			do {
 				num = MetodosGeneral.castearEntero("Seleccione: ", numAux);
-			}while(num < 1 && num > 2);
+			}while(num < 1 || num > 2);
 			
 			switch(num) {
 			case 1:
-				
+				cliente.getCtacte().modificarCtaCte(this.ctacte);
 				break;
 				
 			case 2:

@@ -1,13 +1,7 @@
 package Archivos;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-
 import Final_Programacion_II.MetodosGeneral;
 
 public class Archivo {
@@ -52,7 +46,7 @@ public class Archivo {
 	private static void eliminarRecursivo(File carpeta) {
 		if(carpeta != null) {
 		    if (carpeta.isDirectory()) {
-		        File[] Arregloarchivos = carpeta.listFiles();
+		        File [] Arregloarchivos = carpeta.listFiles();
 		        if (Arregloarchivos != null) {
 		            for (File file : Arregloarchivos) {
 		                eliminarRecursivo(file);
@@ -103,6 +97,7 @@ public class Archivo {
 		}
 	}
 	
+	// ELIMIAR TODOS LOS ARCHIVOS
 	public static void eliminarArchivos(String ruta) {
 		if(ruta != null) {
 			File carpeta = new File(ruta);
@@ -120,98 +115,146 @@ public class Archivo {
 		}
 	}
 	
-	// ABRIR CONEXIÓN ARCHIVO MODO ESCRITURA
-	public static PrintWriter abrirArchivoEscritura(String ruta) {
-		if(ruta != null) {
-			File archivo = new File(ruta);
-			PrintWriter imprimir = null;
-			try {
-				if (archivo.exists()) {
-					FileWriter escribirArchivo = new FileWriter(archivo,true);
-					imprimir = new PrintWriter(escribirArchivo);
-				} else {
-					System.out.println("El archivo especificado no existe.");
-				}	
-			} catch (IOException error) {
-				System.out.println(error.getMessage());
-			}
-			return imprimir;
-		}else {
-			System.out.println("No se han encontrado los datos.");
-		}
-		return null;
+	// GARDADO AUTOMATICO
+	public static void guardarDatos() {
+		File carpeta = new File("Carpeta General");
+	    if (carpeta.exists() == false) {
+	    	Archivo.crearCarpeta("Carpeta General");
+	    	if(carpeta.length() == 0) {
+		    	ArchivoPersona.crearArchivoPersona();
+		    	ArchivoEmpleado.crearArchivoEmpleado();
+				ArchivoCliente.crearArchivoCliente();
+				ArchivoProveedor.crearArchivoProveedor();
+				ArchivoUsuario.crearArchivoUsuario();
+				ArchivoProducto.crearArchivoProducto();
+				ArchivoMovimiento.crearArchivoMovimiento();
+				ArchivoVenta.crearArchivoVenta();
+				ArchivoCtaCte.crearArchivoCtaCte();
+				ArchivoUsuario.crearArchivoUsuario();
+	    	}
+	    }
+		
+		ArchivoPersona.guardarPersonas();
+		ArchivoEmpleado.guardarEmpleados();
+		ArchivoCliente.guardarClientes();
+		ArchivoProveedor.guardarProveedores();
+		ArchivoUsuario.guardarUsuarios();
+		ArchivoProducto.guardarProductos();
+		ArchivoMovimiento.guardarMovimientos();
+		ArchivoVenta.guardarVentas();
+		ArchivoCtaCte.guardarCtaCtes();
+		ArchivoUsuario.guardarUsuarios();
 	}
 	
-	// ESCRIBIR ARCHIVO
-	public static void escribirArchivo(PrintWriter imprimir, String contenido) {
-		if (contenido != null && imprimir != null) {
-			imprimir.println(contenido);
-		}
-	}
-	
-	// CERRAR CONEXIÓN MODO ESCRITURA
-	public static void cerrarArchivoEscritura(PrintWriter imprimir) {
-		if (imprimir != null) {
-			imprimir.close();
-		}
-	}
-	
-	// ABRIR CONEXIÓN ARCHIVO MODO LECTURA
-	public static BufferedReader abrirArchivoLectura(String ruta) {
-		if(ruta != null) {
-			File archivo = new File(ruta);
-			BufferedReader leyendo = null;
-			try {
-				if (archivo.exists()) {
-					FileReader archivoLectura = new FileReader (archivo);
-					leyendo = new BufferedReader(archivoLectura);
-				} else {
-					System.out.println("El archivo especificado no existe.");
-				}	
-			} catch (IOException error) {
-				System.out.println(error.getMessage());
-			}
-			return leyendo;
-		}else {
-			System.out.println("No se han encontrado los datos.");
-		}
-		return null;
-	}
-	
-	// LEER ARCHIVO
-	public static ArrayList <String> leerArchivo (BufferedReader leyendo) {
-		if(leyendo != null) {
-			ArrayList <String> listaGeneral = new ArrayList <String>();
-			try {
-				String aux = leyendo.readLine();
-				while(aux != null) {
-					listaGeneral.add(aux);
-					aux = leyendo.readLine();
-				}
-			} catch ( IOException error) {
-				System.out.println(error.getMessage());
-			}
-			return listaGeneral;
-		}else {
-			System.out.println("No se han encontrado los datos.");
-		}
-		return null;
-	}
-	
-	
-	// CERRAR CONEXION MODO LECTURA
-	public static void cerrarArchivoLectura (BufferedReader leyendo) {
-		if (leyendo != null) {
-	        try {
-	        	leyendo.close();
-			} catch (IOException error) {
-				System.out.println("ERROR: " + error.getMessage());
-			}
-	    }else {
-	    	System.out.println("No se han encontrado los datos.");
+	// CARGA AUTOMATICA
+	public static void cargarDatos() {
+		File carpeta = new File("Carpeta General");
+	    if (carpeta.exists() == true && carpeta.length() != 0) {
+			ArchivoPersona.cargarPersonas();
+			ArchivoEmpleado.cargarEmpleados();
+			ArchivoCliente.cargarClientes();
+			ArchivoProveedor.cargarProveedores();
+			ArchivoUsuario.cargarUsuarios();
+			ArchivoProducto.cargarProductos();
+			ArchivoMovimiento.cargarMovimientos();
+			ArchivoVenta.cargarVentas();
+			ArchivoCtaCte.cargarCtaCtes();
+			ArchivoUsuario.cargarUsuarios();
 	    }
 	}
 	
+//	// ABRIR CONEXIÓN ARCHIVO MODO ESCRITURA
+//	public static PrintWriter abrirArchivoEscritura(String ruta) {
+//		if(ruta != null) {
+//			File archivo = new File(ruta);
+//			PrintWriter imprimir = null;
+//			try {
+//				if (archivo.exists()) {
+//					FileWriter escribirArchivo = new FileWriter(archivo,true);
+//					imprimir = new PrintWriter(escribirArchivo);
+//				} else {
+//					System.out.println("El archivo especificado no existe.");
+//				}	
+//			} catch (IOException error) {
+//				System.out.println(error.getMessage());
+//			}
+//			return imprimir;
+//		}else {
+//			System.out.println("No se han encontrado los datos.");
+//		}
+//		return null;
+//	}
+//	
+//	// ESCRIBIR ARCHIVO
+//	public static void escribirArchivo(PrintWriter imprimir, String contenido) {
+//		if (contenido != null && imprimir != null) {
+//			imprimir.println(contenido);
+//		}
+//	}
+//	
+//	// CERRAR CONEXIÓN MODO ESCRITURA
+//	public static void cerrarArchivoEscritura(PrintWriter imprimir) {
+//		if (imprimir != null) {
+//			imprimir.close();
+//		}
+//	}
+//	
+//	// ABRIR CONEXIÓN ARCHIVO MODO LECTURA
+//	public static BufferedReader abrirArchivoLectura(String ruta) {
+//		if(ruta != null) {
+//			File archivo = new File(ruta);
+//			BufferedReader leyendo = null;
+//			try {
+//				if (archivo.exists()) {
+//					FileReader archivoLectura = new FileReader (archivo);
+//					leyendo = new BufferedReader(archivoLectura);
+//				} else {
+//					System.out.println("El archivo especificado no existe.");
+//				}	
+//			} catch (IOException error) {
+//				System.out.println(error.getMessage());
+//			}
+//			return leyendo;
+//		}else {
+//			System.out.println("No se han encontrado los datos.");
+//		}
+//		return null;
+//	}
+//	
+//	// LEER ARCHIVO
+//	public static ArrayList <String> leerArchivo (BufferedReader leyendo) {
+//		if(leyendo != null) {
+//			ArrayList <String> listaGeneral = new ArrayList <String>();
+//			try {
+//				String aux = leyendo.readLine();
+//				while(aux != null) {
+//					listaGeneral.add(aux);
+//					aux = leyendo.readLine();
+//				}
+//			} catch ( IOException error) {
+//				System.out.println(error.getMessage());
+//			}
+//			return listaGeneral;
+//		}else {
+//			System.out.println("No se han encontrado los datos.");
+//		}
+//		return null;
+//	}
+//	
+//	
+//	// CERRAR CONEXION MODO LECTURA
+//	public static void cerrarArchivoLectura (BufferedReader leyendo) {
+//		if (leyendo != null) {
+//	        try {
+//	        	leyendo.close();
+//			} catch (IOException error) {
+//				System.out.println("ERROR: " + error.getMessage());
+//			}
+//	    }else {
+//	    	System.out.println("No se han encontrado los datos.");
+//	    }
+//	}
+//	
 //	//LEER
 //	public static void leerArchivoClass (String ruta) {
 //		if(ruta != null) {

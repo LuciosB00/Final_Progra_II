@@ -4,9 +4,9 @@ import Final_Programacion_II.MetodosGeneral;
 
 public enum Categoria {
 
-	INDUMENTARIA("Indumentaria."),
+	ACCESORIO("Accesorio."),
 	CALZADO("Calzado."),
-	ACCESORIO("Accesorio.");
+	INDUMENTARIA("Indumentaria.");
 	
 	private final String detalleCategoria;
 	
